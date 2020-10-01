@@ -1,0 +1,297 @@
+{
+    "$id": "AL Language Project File Syntax",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "schema for an AL Language Project File",
+    "type": "object",
+    "properties": {
+        "id": {
+            "$ref": "#/definitions/guid",
+            "description": "GUID of the app package"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of the app package"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description of the app package"
+        },
+        "publisher": {
+            "type": "string",
+            "description": "Name of the publisher of the app package"
+        },
+        "brief": {
+            "type": "string",
+            "description": "Brief description of the app package"
+        },
+        "version": {
+            "type": "string",
+            "description": "Version of the app package in the format X.Y.U.Z"
+        },
+        "privacyStatement": {
+            "type": "string",
+            "description": "URL to the privacy statement"
+        },
+        "propagateDependencies": {
+            "type": "boolean",
+            "description": "Specifies whether the dependencies of this project should be propagated as direct dependencies of projects that depend on this one."
+        },
+        "dependencies": {
+            "description": "List of dependent packages for this app package",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "publisher",
+                    "version"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/guid",
+                        "description": "GUID of the dependent package"
+                    },
+                    "appId": {
+                        "$ref": "#/definitions/guid",
+                        "description": "GUID of the dependent package"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the dependent package"
+                    },
+                    "publisher": {
+                        "type": "string",
+                        "description": "Publisher name of the dependent package"
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "The minimum version of the dependent package in the format X.Y.U.Z"
+                    }
+                }
+            },
+            "uniqueItems": true
+        },
+        "internalsVisibleTo": {
+            "description": "List of packages that can access internals in this package",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "publisher"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/guid",
+                        "description": "GUID of the package"
+                    },
+                    "appId": {
+                        "$ref": "#/definitions/guid",
+                        "description": "GUID of the package"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the package"
+                    },
+                    "publisher": {
+                        "type": "string",
+                        "description": "Publisher name of the package"
+                    }
+                }
+            },
+            "uniqueItems": true
+        },
+        "EULA": {
+            "type": "string",
+            "description": "URL to the End User License Agreement for the app package"
+        },
+        "help": {
+            "type": "string",
+            "description": "URL to the help content for the app package"
+        },
+        "url": {
+            "type": "string",
+            "description": "URL of the app package"
+        },
+        "logo": {
+            "type": "string",
+            "description": "Relative path to the app package logo from the root of the package"
+        },
+        "screenshots": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Relative paths to screenshot files that should be contained in the app package"
+        },
+        "preprocessorSymbols": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Define symbols that can be used in all source files"
+        },
+        "suppressWarnings": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "List of warning ids that the compiler should suppress. E.g. AL0604 or AA0215"
+        },
+        "platform": {
+            "type": "string",
+            "description": "Version of the dependent platform in the format X.Y.U.Z"
+        },
+        "application": {
+            "type": "string",
+            "description": "Version of the dependent application in the format X.Y.U.Z"
+        },
+        "test": {
+            "type": "string",
+            "description": "Version of the dependent test framework in the format X.Y.U.Z"
+        },
+        "target": {
+            "enum": [
+                "Extension",
+                "Internal",
+                "Cloud",
+                "OnPrem"
+            ],
+            "enumDescriptions": [
+                "Replaced by Cloud; restricts use of APIs and .NET so that the app can be published to the cloud.",
+                "Replaced by OnPrem; allows the use of all APIs and .NET but does not allow publishing to the cloud.",
+                "Restricts use of APIs and .NET so that the app can be published to the cloud.",
+                "For on-premises; allows the use of all APIs and .NET but does not allow publishing to the cloud."
+            ],
+            "description": "Compilation target"
+        },
+        "idRanges": {
+            "description": "An optional set of ranges for application object IDs. For all objects outside the range, a compilation error will be raised.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "from",
+                    "to"
+                ],
+                "properties": {
+                    "from": {
+                        "type": "number",
+                        "minimum": 1
+                    },
+                    "to": {
+                        "type": "number",
+                        "minimum": 1
+                    }
+                }
+            }
+        },
+        "idRange": {
+            "$ref": "#/definitions/customIdRange",
+            "description": "An optional range for application object IDs. For all objects outside the range, a compilation error will be raised."
+        },
+        "features": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "TranslationFile",
+                    "GenerateCaptions",
+                    "ExcludeGeneratedTranslations",
+                    "NoImplicitWith",
+                    "GenerateLockedTranslations"
+                ],
+                "enumDescriptions": [
+                    "Generate and utilize translation files in xliff format",
+                    "Generate translation entries for captions for all application objects",
+                    "Exclude the generated translation file from the app",
+                    "Switch off the option of using implicit withs",
+                    "Generate translation entries in the template translation file for locked labels"
+                ]
+            },
+            "description": "Optional/experimental compiler features can be enabled by specifying them."
+        },
+        "showMyCode": {
+            "type": "boolean",
+            "description": "Allows the code to be debugged from other extensions when it has been published. The default setting is false."
+        },
+        "runtime": {
+            "$ref": "#/definitions/runtime"
+        },
+        "contextSensitiveHelpUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Defines the base help URL for objects defined in this extension. The URL can contain a placeholder for the user locale: {0}."
+        },
+        "helpBaseUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "The base of the help URL that overrides the default help URL. The URL must contain a placeholder for the user locale: {0}."
+        },
+        "supportedLocales": {
+            "description": "List of locales supported by this app in the format <languageCode>-<CountryCode> i.e. en-US, en-CA, da-DK. The first locale on the list is considered the default.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "applicationInsightsKey": {
+            "$ref": "#/definitions/guid",
+            "description": "Partner specific Azure Application Insights Key. Telemetry from this extension will be published to the relevant Azure resource."
+        },
+        "keyVaultUrls": {
+            "type": "array",
+            "items":  {
+              "type":  "string",
+              "format": "uri"
+            },
+            "description": "The URLs of up to two Azure Key Vaults in the format https://<keyvaultname>.vault.azure.net. AL code in this extension will be able to read secrets in these key vaults. Specify a second key vault to be resilient in case the first key vault is unavailable."
+        }
+    },
+    "definitions": {
+        "guid": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "customIdRange": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "number",
+                    "minimum": 1
+                },
+                "to": {
+                    "type": "number",
+                    "minimum": 1
+                }
+            }
+        },
+        "runtime": {
+            "type": "string",
+            "anyOf": [
+                {
+                    "enum": [
+                        "6.0",
+                        "5.0",
+                        "4.0",
+                        "3.0",
+                        "2.0",
+                        "1.0"
+                    ],
+                    "enumDescriptions": [
+                        "Business Central 2020 release wave 2",
+                        "Business Central 2020 release wave 1",
+                        "Business Central 2019 release wave 2",
+                        "Business Central Spring '19 Release",
+                        "Business Central Fall '18 Release",
+                        "Business Central Spring '18 Release"
+                    ]
+                },
+                {
+                    "pattern": "\\d+.\\d+"
+                }
+            ],
+            "description": "The version of the runtime that the project is targeting. The project can be published to the server with an earlier or the same runtime version."
+        }
+    }
+}

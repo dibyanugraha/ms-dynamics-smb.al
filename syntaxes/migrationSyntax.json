@@ -1,0 +1,30 @@
+{
+    "$id": "AL Rule Set File Syntax",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "Schema for a file containing a rule set.",
+    "type": "object",
+    "properties": {
+        "apprules": {
+            "description": "The array of apps to migrate",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/apprule"
+            }
+        }
+    },
+    "definitions": {
+        "apprule": {
+            "type" : "object",
+            "properties": {
+                "id": {
+                    "description": "The id of the app to migrate",
+                    "$ref": "#/definitions/guid"
+                }
+            }
+        },
+        "guid": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        }
+    }
+}

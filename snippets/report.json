@@ -1,0 +1,80 @@
+{
+    "Snippet: Report": {
+        "prefix": "treport",
+        "body": [
+            "report ${1:Id} ${2:MyReport}",
+            "{",
+            "\tUsageCategory = ${3|Administration,Documents,History,Lists,None,ReportsAndAnalysis,Tasks|};",
+            "\tApplicationArea = ${4|All,Basic,Suite,Advanced|};",
+            "\t",
+            "\tdataset",
+            "\t{",
+            "\t\tdataitem(${6:DataItemName}; ${5:SourceTableName})",
+            "\t\t{",
+            "\t\t\tcolumn(${8:ColumnName}; ${7:SourceFieldName})",
+            "\t\t\t{",
+            "\t\t\t\t${9}",
+            "\t\t\t}",
+            "\t\t}",
+            "\t}",
+            "\t",
+            "\trequestpage",
+            "\t{",
+            "\t\tlayout",
+            "\t\t{",
+            "\t\t\tarea(Content)",
+            "\t\t\t{",
+            "\t\t\t\tgroup(${10:GroupName})",
+            "\t\t\t\t{",
+            "\t\t\t\t\tfield(${12:Name}; ${11:SourceExpression})",
+            "\t\t\t\t\t{",
+            "\t\t\t\t\t\tApplicationArea = ${4};",
+            "\t\t\t\t\t\t${13}",
+            "\t\t\t\t\t}",
+            "\t\t\t\t}",
+            "\t\t\t}",
+            "\t\t}",
+            "\t",
+            "\t\tactions",
+            "\t\t{",
+            "\t\t\tarea(${14:processing})",
+            "\t\t\t{",
+            "\t\t\t\taction(${15:ActionName})",
+            "\t\t\t\t{",
+            "\t\t\t\t\tApplicationArea = ${4};",
+            "\t\t\t\t\t${16}",
+            "\t\t\t\t}",
+            "\t\t\t}",
+            "\t\t}",
+            "\t}",
+            "\t",
+            "\tvar",
+            "\t\t${17:myInt}: ${0:Integer};",
+            "}"
+        ],
+        "description": "Snippet: Report"
+    },
+    "Snippet: Data Item": {
+        "prefix": "tdataitem",
+        "body": [
+            "dataitem(${1:DataItemName}; ${2:SourceTableName})",
+            "{",
+            "\tcolumn(${3:ColumnName}; ${4:SourceFieldName})",
+            "\t{",
+            "\t\t${0}",
+            "\t}",
+            "}"
+        ],
+        "description": "Snippet: Report Data Item"
+    },
+    "Snippet: Column": {
+        "prefix": "tcolumn",
+        "body": [
+            "column(${1:ColumnName}; ${2:SourceFieldName})",
+            "{",
+            "\t${0}",
+            "}"
+        ],
+        "description": "Snippet: Column"
+    }
+}

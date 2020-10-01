@@ -1,0 +1,10 @@
+{
+    "iconDefinitions": {
+        "_al_file": {
+            "iconPath": "../img/AL_file_logo.svg"
+        }
+    },
+    "languageIds": {
+        "al": "_al_file"
+    }
+}

@@ -1,0 +1,1063 @@
+{
+	"name": "al",
+	"displayName": "AL Language",
+	"description": "AL development tools for Dynamics 365 Business Central",
+	"version": "6.0.344420",
+	"publisher": "ms-dynamics-smb",
+	"icon": "img/AL_ext_logo.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Microsoft/AL.git"
+	},
+	"preview": false,
+	"keywords": [
+		"Dynamics 365 Business Central",
+		"AL",
+		"SMB",
+		"ERP"
+	],
+	"bugs": {
+		"url": "https://github.com/microsoft/al/issues"
+	},
+	"license": "https://go.microsoft.com/fwlink/?linkid=852321",
+	"galleryBanner": {
+		"color": "#0060A0",
+		"theme": "dark"
+	},
+	"engines": {
+		"vscode": "^1.43.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Debuggers",
+		"Formatters"
+	],
+	"activationEvents": [
+		"onLanguage:al",
+		"workspaceContains:app.json",
+		"onCommand:al.go"
+	],
+	"main": "./out/src/extension",
+	"contributes": {
+		"languages": [
+			{
+				"id": "al",
+				"extensions": [
+					".al",
+					".dal"
+				],
+				"aliases": [
+					"AL"
+				],
+				"configuration": "./al.configuration.json"
+			}
+		],
+		"iconThemes": [
+			{
+				"id": "al",
+				"label": "AL",
+				"path": "./file-icons/al-icon-theme.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "al",
+				"path": "./snippets/al.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/codeunit.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/interface.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/controladdin.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/dotnet.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/enum.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/enumextension.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/page.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/pageextension.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/query.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/report.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/table.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/tableextension.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/xmlport.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/pagecustomization.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/profile.json"
+			},
+			{
+				"language": "json",
+				"path": "./snippets/ruleset.json"
+			},
+			{
+				"language": "xml",
+				"path": "./snippets/xml.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "al",
+				"scopeName": "source.al",
+				"path": "./syntaxes/alsyntax.tmlanguage"
+			}
+		],
+		"configuration": {
+			"title": "AL Language extension configuration",
+			"properties": {
+				"al.editorServicesPath": {
+					"type": "string",
+					"default": "bin/",
+					"description": "Path to Editor Services host executable."
+				},
+				"al.useLegacyRuntime": {
+					"type": "boolean",
+					"default": false,
+					"description": "Use the .NET Framework runtime for hosting the language service instead of the .NET Core runtime. Enabling this option might result in a reduced level of performance."
+				},
+				"al.editorServicesLogLevel": {
+					"enum": [
+						"Verbose",
+						"Normal",
+						"Warning",
+						"Error"
+					],
+					"enumDescriptions": [
+						"Captures every log message; this will generate a lot of data.",
+						"Captures normal, warning, and error messages.",
+						"Captures warning and error messages.",
+						"Captures only error messages."
+					],
+					"default": "Normal",
+					"description": "Sets the logging verbosity level for the AL Language Editor Services host executable. Possible values are 'Verbose', 'Normal', 'Warning', and 'Error'"
+				},
+				"al.packageCachePath": {
+					"type": "string",
+					"default": "./.alpackages",
+					"description": "Sets the directory path where reference symbol packages are located",
+					"scope": "resource"
+				},
+				"al.snapshotOutputPath": {
+					"type": "string",
+					"default": "./.snapshots",
+					"description": "Sets the directory path where snapshot files are saved.",
+					"scope": "resource"
+				},
+				"al.incognito": {
+					"type": "boolean",
+					"description": "Specifies whether to open the browser in Incognito/InPrivate mode when launching the application from Visual Studio Code. This option will take effect only if the 'al.browser' option is set to a non-default value.",
+					"scope": "resource"
+				},
+				"al.browser": {
+					"enum": [
+						"Chrome",
+						"Edge",
+						"EdgeBeta",
+						"Firefox",
+						"SystemDefault"
+					],
+					"description": "Specifies the browser in which to open the Business Central client when launching the application from Visual Studio Code",
+					"scope": "resource",
+					"default": "SystemDefault"
+				},
+				"al.enableCodeAnalysis": {
+					"type": "boolean",
+					"description": "Specifies whether the code analysis should be performed for all source files in the opened folder",
+					"scope": "resource"
+				},
+				"al.backgroundCodeAnalysis": {
+					"type": "boolean",
+					"description": "Specifies whether the code analysis should be performed in the background",
+					"scope": "resource",
+					"default": true
+				},
+				"al.incrementalBuild": {
+					"type": "boolean",
+					"description": "Specifies whether the compiler should reuse the existing background compilation for creating the package.",
+					"scope": "resource"
+				},
+				"al.codeAnalyzers": {
+					"type": "array",
+					"items": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"${CodeCop}",
+									"${AppSourceCop}",
+									"${PerTenantExtensionCop}",
+									"${UICop}"
+								],
+								"enumDescriptions": [
+									"CodeCop is an analyzer that enforces the official AL coding guidelines.",
+									"AppSourceCop is an analyzer that enforces rules that must be respected by extensions meant to be published to Microsoft AppSource.",
+									"PerTenantExtensionCop is an analyzer that enforces rules that must be respected by extensions meant to be installed for individual tenants.",
+									"UICop is an analyzer that enforces rules that must be respected by extensions meant to customize the web client."
+								]
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"uniqueItems": true,
+					"description": "Sets the list of paths to code analyzers to use for performing code analysis.",
+					"scope": "resource"
+				},
+				"al.ruleSetPath": {
+					"type": "string",
+					"default": null,
+					"description": "Sets the path to the file containing the customized rules to use when running code analysis.",
+					"scope": "resource"
+				},
+				"al.enableCodeActions": {
+					"type": "boolean",
+					"description": "Specifies whether the code actions should be enabled for all source files in the current project.",
+					"scope": "resource"
+				},
+				"al.assemblyProbingPaths": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						"./.netpackages"
+					],
+					"description": "Sets the list of directory paths where the compiler should search for referenced .NET assemblies.",
+					"scope": "resource"
+				},
+				"al.snapshotDebuggingPath": {
+					"type": "string",
+					"default": "./.snapshot",
+					"description": "Sets the directory path where the snapshot debugger sources are located.",
+					"scope": "resource"
+				},
+				"al.compilationOptions": {
+					"type": "object",
+					"description": "Specify compilation options.",
+					"scope": "resource",
+					"default": {},
+					"properties": {
+						"generateReportLayout": {
+							"type": "boolean",
+							"default": true,
+							"description": "Controls whether the compiler will generate Report Layout files when building the package."
+						},
+						"parallel": {
+							"type": "boolean",
+							"default": true,
+							"description": "Specifies whether the compiler should use multiple threads when building the project."
+						},
+						"maxDegreeOfParallelism": {
+							"type": "integer",
+							"default": 2,
+							"description": "Specifies the maximum number of concurrent tasks the compiler should use when compiling the project.",
+							"minimum": 1
+						},
+						"delayAfterLastDocumentChange": {
+							"type": "number",
+							"default": 800,
+							"description": "Specifies the number of milliseconds to wait after the last buffer changes before getting document diagnostics. After changing the value of this option, you must restart Visual Stuido Code for it to take effect."
+						},
+						"delayAfterLastProjectChange": {
+							"type": "number",
+							"default": 4000,
+							"description": "Specifies the number of milliseconds to wait after the last buffer changes before getting complete diagnostics. After changing the value of this option, you must restart Visual Stuido Code for it to take effect."
+						}
+					}
+				}
+			}
+		},
+		"configurationDefaults": {
+			"[al]": {
+				"editor.wordBasedSuggestions": false,
+				"editor.suggestSelection": "first",
+				"editor.formatOnSave": true
+			}
+		},
+		"commands": [
+			{
+				"title": "Go!",
+				"command": "al.go",
+				"category": "AL"
+			},
+			{
+				"title": "Package",
+				"command": "al.package",
+				"category": "AL"
+			},
+			{
+				"title": "Publish with debugging",
+				"command": "al.publish",
+				"category": "AL"
+			},
+			{
+				"title": "Publish without debugging",
+				"command": "al.publishNoDebug",
+				"category": "AL"
+			},
+			{
+				"title": "Rapid Application Publish with debugging",
+				"command": "al.incrementalPublish",
+				"category": "AL"
+			},
+			{
+				"title": "Rapid Application Publish without debugging",
+				"command": "al.incrementalPublishNoDebug",
+				"category": "AL"
+			},
+			{
+				"title": "Debug without publishing",
+				"command": "al.onlyDebug",
+				"category": "AL"
+			},
+			{
+				"title": "Initialize snapshot debugging",
+				"command": "al.initalizeSnapshotDebugging",
+				"category": "AL"
+			},
+			{
+				"title": "Finish snapshot debugging on the server",
+				"command": "al.finishSnapshotDebugging",
+				"category": "AL"
+			},
+			{
+				"title": "Show all snapshots",
+				"command": "al.snapshots",
+				"category": "AL"
+			},
+			{
+				"title": "Clear credentials cache",
+				"command": "al.clearCredentialsCache",
+				"category": "AL"
+			},
+			{
+				"title": "Generate manifest",
+				"command": "al.generateManifest",
+				"category": "AL"
+			},
+			{
+				"title": "Download symbols",
+				"command": "al.downloadSymbols",
+				"category": "AL"
+			},
+			{
+				"title": "Download source code",
+				"command": "al.downloadSource",
+				"category": "AL"
+			},
+			{
+				"title": "Generate permission set containing current extension objects",
+				"command": "al.generatePermissionSetForExtensionObjects",
+				"category": "AL"
+			},
+			{
+				"title": "Generate entitlements containing current extension objects",
+				"command": "al.generateEntitlementsForExtensionObjects",
+				"category": "AL"
+			},
+			{
+				"title": "Publish and open in the designer",
+				"command": "al.openPageDesigner",
+				"category": "AL"
+			},
+			{
+				"title": "Open Externally",
+				"command": "al.openExternally",
+				"category": "AL"
+			},
+			{
+				"title": "Open Events Recorder",
+				"command": "al.openEventRecorder",
+				"category": "AL"
+			},
+			{
+				"title": "Find Event",
+				"command": "al.insertEvent",
+				"category": "AL"
+			},
+			{
+				"title": "Publish extension without building",
+				"command": "al.publishExistingExtension",
+				"category": "AL"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "al.package",
+				"key": "Ctrl+Shift+B",
+				"when": "alExtensionActive"
+			},
+			{
+				"command": "al.go",
+				"key": "Alt+A Alt+L"
+			},
+			{
+				"command": "al.publish",
+				"key": "F5",
+				"mac": "F5",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.publishNoDebug",
+				"key": "Ctrl+F5",
+				"mac": "cmd+F5",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.incrementalPublish",
+				"key": "Alt+F5",
+				"mac": "alt+F5",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.incrementalPublishNoDebug",
+				"key": "Ctrl+Alt+F5",
+				"mac": "cmd+alt+F5",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.onlyDebug",
+				"key": "Ctrl+Shift+F5",
+				"mac": "cmd+shift+F5",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.initalizeSnapshotDebugging",
+				"key": "F7",
+				"mac": "F7",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.finishSnapshotDebugging",
+				"key": "Alt+F7",
+				"mac": "alt+F7",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.snapshots",
+				"key": "Shift+F7",
+				"mac": "cmd+F7",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.openPageDesigner",
+				"key": "F6",
+				"mac": "F6",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.downloadSource",
+				"key": "Alt+F6",
+				"mac": "ALT+F6",
+				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.insertEvent",
+				"key": "Shift+Alt+E",
+				"when": "alExtensionActive && !inDebugMode"
+			}
+		],
+		"jsonValidation": [
+			{
+				"fileMatch": "app.json",
+				"url": "./syntaxes/appSyntax.json"
+			},
+			{
+				"fileMatch": "*.ruleset.json",
+				"url": "./syntaxes/ruleSetSyntax.json"
+			},
+			{
+				"fileMatch": "AppSourceCop.json",
+				"url": "./syntaxes/appSourceCopSyntax.json"
+			},
+			{
+				"fileMatch": "Migration.json",
+				"url": "./syntaxes/migrationSyntax.json"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "al.clearCredentialsCache",
+					"when": "alExtensionActive"
+				},
+				{
+					"command": "al.downloadSymbols",
+					"when": "alExtensionActive"
+				},
+				{
+					"command": "al.publish",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.publishNoDebug",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.incrementalPublish",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.incrementalPublishNoDebug",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.onlyDebug",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.package",
+					"when": "alExtensionActive"
+				},
+				{
+					"command": "al.initalizeSnapshotDebugging",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.finishSnapshotDebugging",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.snapshots",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.openPageDesigner",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.downloadSource",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.generateManifest",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.generatePermissionSetForExtensionObjects",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.generateEntitlementsForExtensionObjects",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.insertEvent",
+					"when": "alExtensionActive && !inDebugMode"
+				},
+				{
+					"command": "al.publishExistingExtension",
+					"when": "inDebugMode"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "al.openExternally",
+					"group": "navigation"
+				}
+			]
+		},
+		"breakpoints": [
+			{
+				"language": "al"
+			}
+		],
+		"debuggers": [
+			{
+				"type": "al",
+				"label": "AL Language",
+				"configurationSnippets": [
+					{
+						"label": "AL: Publish to your own server",
+						"description": "Publish the package to your own server",
+						"body": {
+							"name": "${1:Publish: Your own server}",
+							"type": "al",
+							"request": "launch",
+							"server": "${2:http://localhost}",
+							"serverInstance": "${3:BC170}",
+							"authentication": "${4|UserPassword,Windows,AAD|}",
+							"startupObjectId": 22,
+							"breakOnError": true,
+							"breakOnRecordWrite": false,
+							"launchBrowser": true,
+							"enableSqlInformationDebugger": true,
+							"enableLongRunningSqlStatements": true,
+							"longRunningSqlStatementsThreshold": 500,
+							"numberOfSqlStatements": 10,
+							"tenant": "default"
+						}
+					},
+					{
+						"label": "AL: Publish to Microsoft cloud sandbox",
+						"description": "Publish the package to the Microsoft cloud sandbox",
+						"body": {
+							"name": "${0:Publish: Microsoft cloud sandbox}",
+							"type": "al",
+							"request": "launch",
+							"startupObjectId": 22,
+							"breakOnError": true,
+							"breakOnRecordWrite": false,
+							"launchBrowser": true,
+							"enableSqlInformationDebugger": true,
+							"enableLongRunningSqlStatements": true,
+							"longRunningSqlStatementsThreshold": 500,
+							"numberOfSqlStatements": 10
+						}
+					},
+					{
+						"label": "Attach to the next client on your server",
+						"description": "Attach to the next client on your server",
+						"body": {
+							"name": "${1:Attach: Your own server}",
+							"type": "al",
+							"request": "attach",
+							"server": "${2:http://localhost}",
+							"serverInstance": "${3:BC170}",
+							"authentication": "${4|UserPassword,Windows,AAD|}",
+							"breakOnError": true,
+							"breakOnRecordWrite": false,
+							"enableSqlInformationDebugger": true,
+							"enableLongRunningSqlStatements": true,
+							"longRunningSqlStatementsThreshold": 500,
+							"numberOfSqlStatements": 10,
+							"breakOnNext": "WebServiceClient",
+							"tenant": "default"
+						}
+					},
+					{
+						"label": "AL: Attach to the next client on the cloud sandbox",
+						"description": "Attach to the next client on the cloud sandbox",
+						"body": {
+							"name": "${0:Attach: Microsoft cloud sandbox}",
+							"type": "al",
+							"request": "attach",
+							"breakOnError": true,
+							"breakOnRecordWrite": false,
+							"enableSqlInformationDebugger": true,
+							"enableLongRunningSqlStatements": true,
+							"longRunningSqlStatementsThreshold": 500,
+							"numberOfSqlStatements": 10,
+							"breakOnNext": "WebServiceClient"
+						}
+					},
+					{
+						"label": "AL: Initialize a snapshot debugging session on cloud",
+						"description": "Initialize a snapshot debugging session on cloud",
+						"body": {
+							"name": "${0:snapshotInitialize: Microsoft production cloud}",
+							"type": "al",
+							"request": "snapshotInitialize",
+							"breakOnNext": "WebClient"
+						}
+					},
+					{
+						"label": "AL: Initialize a snapshot debugging session on your own server",
+						"description": "Initialize a snapshot debugging session on your own server",
+						"body": {
+							"name": "${1:snapshotInitialize: Your own server}",
+							"type": "al",
+							"request": "snapshotInitialize",
+							"server": "${2:http://localhost}",
+							"serverInstance": "${3:BC170}",
+							"authentication": "${4|UserPassword,Windows,AAD|}",
+							"breakOnNext": "WebClient"
+						}
+					}
+				],
+				"configurationAttributes": {
+					"launch": {
+						"required": [],
+						"properties": {
+							"server": {
+								"type": "string",
+								"description": "The server url.",
+								"default": "http://localhost"
+							},
+							"port": {
+								"type": "number",
+								"description": "The development service port.",
+								"default": 7049
+							},
+							"serverInstance": {
+								"type": "string",
+								"description": "The server instance to connect to.",
+								"default": ""
+							},
+							"tenant": {
+								"type": "string",
+								"description": "The tenant to connect to.\nFor an on-premise server, this parameter must contain a tenant name, for example: MyTenant.\nFor a cloud server, this parameter must contain a tenant AAD domain name, for example: mycustomer.onmicrosoft.com",
+								"default": "default"
+							},
+							"applicationFamily": {
+								"type": "string",
+								"description": "The application family in the cloud server, for example: Fabrikam. This property is reserved for Embed Apps.",
+								"default": ""
+							},
+							"authentication": {
+								"enum": [
+									"AAD",
+									"Windows",
+									"UserPassword"
+								],
+								"enumDescriptions": [
+									"Azure Active Directory",
+									"Windows",
+									"Username and Password."
+								],
+								"description": "Specifies the server authentication method.",
+								"default": "AAD"
+							},
+							"startupObjectId": {
+								"type": "number",
+								"description": "Specifies the ID of the object which should be opened after publishing. Only objects of type Page and Table are currently supported.",
+								"default": 22
+							},
+							"startupObjectType": {
+								"enum": [
+									"Page",
+									"Table",
+									"Report",
+									"Query"
+								],
+								"description": "Specifies the type of the object which should be opened after publishing.",
+								"default": "Page"
+							},
+							"schemaUpdateMode": {
+								"enum": [
+									"Synchronize",
+									"Recreate",
+									"ForceSync"
+								],
+								"enumDescriptions": [
+									"Synchronize the schema and fail on incompatiable schema changes.",
+									"Recreate the tables, and table extensions and lose all data stored in them.",
+									"ForceSync is similar to Synchronize in data will be preserved in almost all cases while giving more freedom to make schema changes."
+								],
+								"description": "Specifies the update mode to use when the extension is already installed.",
+								"default": "Synchronize"
+							},
+							"dependencyPublishingOption": {
+								"enum": [
+									"Default",
+									"Ignore",
+									"Strict"
+								],
+								"enumDescriptions": [
+									"Dependency publishing will be applied.",
+									"Dependency publishing is ignored.",
+									"Dependency publishing will fail if there are any apps that directly depend on the startup project and these apps are not part of the workspace."
+								],
+								"description": "Specifies the publishing option to use. By specifying the Ignore option, only the current project is published, dependencies are ignored. By specifying the Strict option, publishing will fail if the project has apps that not part of the workspace and depend on it",
+								"default": "Default"
+							},
+							"breakOnError": {
+								"type": "boolean",
+								"description": "Specifies whether the debugger to break on the next error",
+								"default": true
+							},
+							"breakOnRecordWrite": {
+								"type": "boolean",
+								"description": "Specifies whether the debugger breaks on record changes.",
+								"default": false
+							},
+							"launchBrowser": {
+								"type": "boolean",
+								"description": "If the value is set to true, the browser tab is launched, if false, the browser tab is not launched. If publishing with debugging enabled, the browser tab is launched and this setting is ignored. The default value is true.",
+								"default": true
+							},
+							"enableSqlInformationDebugger": {
+								"type": "boolean",
+								"description": "Specifies whether the debugger shows the SQL Information in the debugger.",
+								"default": true
+							},
+							"enableLongRunningSqlStatements": {
+								"type": "boolean",
+								"description": "Specifies whether the debugger enables or disables long running SQL statements in the debugger window.",
+								"default": true
+							},
+							"longRunningSqlStatementsThreshold": {
+								"type": "number",
+								"description": "Sets the number of milliseconds spent before a SQL statement is considered as long running in the debugger.",
+								"default": 500
+							},
+							"numberOfSqlStatements": {
+								"type": "number",
+								"description": "Sets the number of SQL statements to be shown in the debugger.",
+								"default": 10
+							},
+							"sandboxName": {
+								"type": "string",
+								"description": "Specifies which sandox to use in cases where multiple sandboxes are owned by the same tenant."
+							},
+							"disableHttpRequestTimeout": {
+								"type": "boolean",
+								"description": "Turn off Visual Studio Code's HTTP request timeout and allow for requests to run with infinite timeout.",
+								"default": false
+							},
+							"forceUpgrade": {
+								"type": "boolean",
+								"description": "Always run upgrade codeunits, even if the version number of the extension is the same as an already installed version.",
+								"default": false
+							},
+							"useSystemSessionForDeployment": {
+								"type": "boolean",
+								"description": "Runs install and upgrade codeunits in a system session. This will prevent debugging install and upgrade codeunits.",
+								"default": false
+							},
+							"snapshotFileName": {
+								"type": "string",
+								"description": "The name of the snapshot file",
+								"default": ""
+							}
+						}
+					},
+					"attach": {
+						"required": [],
+						"properties": {
+							"server": {
+								"type": "string",
+								"description": "The server url.",
+								"default": "http://localhost"
+							},
+							"port": {
+								"type": "number",
+								"description": "The development service port.",
+								"default": 7049
+							},
+							"serverInstance": {
+								"type": "string",
+								"description": "The server instance to connect to.",
+								"default": ""
+							},
+							"tenant": {
+								"type": "string",
+								"description": "The tenant to connect to.\nFor an on-premise server, this parameter must contain a tenant name, for example: MyTenant.\nFor a cloud server, this parameter must contain a tenant AAD domain name, for example: mycustomer.onmicrosoft.com",
+								"default": "default"
+							},
+							"applicationFamily": {
+								"type": "string",
+								"description": "The application family in the cloud server, for example: Fabrikam. This property is reserved for Embed Apps.",
+								"default": ""
+							},
+							"authentication": {
+								"enum": [
+									"AAD",
+									"Windows",
+									"UserPassword"
+								],
+								"enumDescriptions": [
+									"Azure Active Directory",
+									"Windows",
+									"Username and Password."
+								],
+								"description": "Specifies the server authentication method.",
+								"default": "AAD"
+							},
+							"breakOnError": {
+								"type": "boolean",
+								"description": "Specifies whether the debugger to break on the next error",
+								"default": true
+							},
+							"breakOnRecordWrite": {
+								"type": "boolean",
+								"description": "Specifies whether the debugger breaks on record changes.",
+								"default": false
+							},
+							"enableSqlInformationDebugger": {
+								"type": "boolean",
+								"description": "Specifies whether the debugger shows the SQL Information in the debugger.",
+								"default": true
+							},
+							"enableLongRunningSqlStatements": {
+								"type": "boolean",
+								"description": "Specifies whether the debugger enables or disables long running SQL statements in the debugger window.",
+								"default": true
+							},
+							"longRunningSqlStatementsThreshold": {
+								"type": "number",
+								"description": "Sets the number of milliseconds spent before a SQL statement is considered as long running in the debugger.",
+								"default": 500
+							},
+							"numberOfSqlStatements": {
+								"type": "number",
+								"description": "Sets the number of SQL statements to be shown in the debugger.",
+								"default": 10
+							},
+							"breakOnNext": {
+								"enum": [
+									"WebServiceClient",
+									"WebClient",
+									"Background"
+								],
+								"enumDescriptions": [
+									"Break on the next Web Service request.",
+									"Break on the next Web client session.",
+									"Break on the next background session."
+								],
+								"description": "Specifies that attach should break on the next available client session. The sandbox version only supports attaching to a WebService client.",
+								"default": "WebServiceClient"
+							},
+							"sandboxName": {
+								"type": "string",
+								"description": "Specifies which sandox to use in cases where multiple sandboxes are owned by the same tenant."
+							},
+							"forceUpgrade": {
+								"type": "boolean",
+								"description": "Always run upgrade codeunits, even if the version number of the extension is the same as an already installed version.",
+								"default": false
+							},
+							"useSystemSessionForDeployment": {
+								"type": "boolean",
+								"description": "Runs install and upgrade codeunits in a system session. This will prevent debugging install and upgrade codeunits.",
+								"default": false
+							}
+						}
+					},
+					"snapshotInitialize": {
+						"required": [],
+						"properties": {
+							"server": {
+								"type": "string",
+								"description": "The server url.",
+								"default": "http://localhost"
+							},
+							"serverInstance": {
+								"type": "string",
+								"description": "The server instance to connect to.",
+								"default": ""
+							},
+							"tenant": {
+								"type": "string",
+								"description": "The tenant to connect to.\nFor an on-premise server, this parameter must contain a tenant name, for example: MyTenant.\nFor a cloud server, this parameter must contain a tenant AAD domain name, for example: mycustomer.onmicrosoft.com",
+								"default": "default"
+							},
+							"applicationFamily": {
+								"type": "string",
+								"description": "The application family in the cloud server, for example: Fabrikam. This property is reserved for Embed Apps.",
+								"default": ""
+							},
+							"authentication": {
+								"enum": [
+									"AAD",
+									"Windows",
+									"UserPassword"
+								],
+								"enumDescriptions": [
+									"Azure Active Directory",
+									"Windows",
+									"Username and Password."
+								],
+								"description": "Specifies the server authentication method.",
+								"default": "AAD"
+							},
+							"userId": {
+								"type": "string",
+								"description": "Specifies the end user id who will first connect to perform a snapshot debugging session. ",
+								"default": ""
+							},
+							"breakOnNext": {
+								"enum": [
+									"WebServiceClient",
+									"WebClient",
+									"Background"
+								],
+								"enumDescriptions": [
+									"Break on the next Web Service request.",
+									"Break on the next Web client session.",
+									"Break on the next background session."
+								],
+								"description": "Specifies that kind of connection a snapshot debugging session will be established.",
+								"default": "WebServiceClient"
+							},
+							"sandboxName": {
+								"type": "string",
+								"description": "Specifies which sandox to use in cases where multiple sandboxes are owned by the same tenant."
+							},
+							"sessionId": {
+								"type": "integer",
+								"description": "An existing session id, snapshot attach should be attempted at."
+							},
+							"snapshotVerbosity": {
+								"enum": [
+									"SnapPoint",
+									"Full"
+								],
+								"description": "Specifies the verbosity level of snapshot data. If SnapPoint is specified then stacktraces and line information will only be gathered on snap points.",
+								"default": "SnapPoint"
+							}
+						}
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "node ./node_modules/typescript/bin/tsc -p ./",
+		"compile": "node ./node_modules/typescript/bin/tsc -p ./",
+		"test": "node ./out/test/runTest.js"
+	},
+	"dependencies": {
+		"uuid": "3.4.0",
+		"vscode-debugadapter": "1.39.1",
+		"vscode-debugprotocol": "1.39.0",
+		"vscode-languageclient": "6.1.1",
+		"vscode-languageserver-protocol": "3.15.2"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "12.12.6",
+		"@types/uuid": "3.4.7",
+		"@types/vscode": "^1.43.0",
+		"glob": "^7.1.4",
+		"mocha": "^7.1.1",
+		"typescript": "^3.7.5",
+		"vscode-test": "^1.3.0"
+	},
+	"__metadata": {
+		"id": "fe889a8a-1498-4047-850d-eb8ea82de1d1",
+		"publisherId": "39a6c8fa-a3ff-4e28-9a8e-aaa61b0d0e47",
+		"publisherDisplayName": "Microsoft"
+	}
+}

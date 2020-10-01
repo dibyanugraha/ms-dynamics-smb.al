@@ -1,0 +1,57 @@
+{
+    "$id": "AppSourceCop Configuration File Syntax",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "Schema for the configuration file for AppSourceCop.",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "name": {
+            "description": "The name of a previous version of this package with which you want to compare the current package for breaking changes. This property is being deprecated because the name of the previous extension should be the same as the current extension's name.",
+            "type": "string"
+        },
+        "publisher": {
+            "description": "The publisher of a previous version of this package with which you want to compare the current package for breaking changes. This property is being deprecated because the name of the publisher of the previous extension should be the same as the current extension's publisher.",
+            "type": "string"
+        },
+        "version": {
+            "type": "string",
+            "description": "The version of a previous version of this package with which you want to compare the current package for breaking changes.",
+            "pattern": "(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)"
+        },
+        "mandatoryAffixes": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Affixes that must be prepended or appended to the name of all new application objects, extension objects, and fields."
+        },
+        "mandatoryPrefix": {
+            "type": "string",
+            "description": "Prefix that must be prepended to the name of all new application objects, extension objects, and fields. This property is being deprecated in favor of mandatoryAffixes."
+        },
+        "mandatorySuffix": {
+            "type": "string",
+            "description": "Suffix that must be appended to the name of all new application objects, extension objects, and fields. This property is being deprecated in favor of mandatoryAffixes."
+        },
+        "supportedCountries": {
+            "description": "The set of country codes, in the alpha-2 ISO 3166 format, in which the application will be available.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "targetVersion": {
+            "type": "string",
+            "description": "Specifies the next minor version of the extension for the current branch. Only relevant when the default obsoleteTagPattern is used. For example this can take the values 16.0, 16.1 etc.",
+            "pattern": "(\\d+)\\.(\\d+)"
+        },
+        "obsoleteTagPattern": {
+            "description": "The Obsolete tag pattern to verify with Rule 76. This should be a valid regular expression. By default the pattern \\d+\\.\\d+ is used",
+            "type": "string"
+        },
+        "obsoleteTagPatternDescription": {
+            "description": "A human-readable description for the ObsoleteTagPattern regular expression. By Default Major.Minor is used",
+            "type": "string"
+        }
+    }
+}
