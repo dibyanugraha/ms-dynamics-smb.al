@@ -30,21 +30,37 @@ const alDebugAdapterDescriptorFactory_1 = require("./alDebugAdapterDescriptorFac
 const snapshotDebugger_1 = require("./snapshotDebugger");
 const LaunchFilePath = ".vscode/launch.json";
 const LaunchFileVersion = "0.2.0";
-const LaunchConfigHeader = {
-    "type": constants_1.AlLanguageId,
-    "request": "launch"
-};
+var DebugConfigurationType;
+(function (DebugConfigurationType) {
+    DebugConfigurationType["Launch"] = "launch";
+    DebugConfigurationType["Attach"] = "attach";
+    DebugConfigurationType["SnapshotInitialize"] = "snapshotInitialize";
+})(DebugConfigurationType = exports.DebugConfigurationType || (exports.DebugConfigurationType = {}));
+var EnvironmentType;
+(function (EnvironmentType) {
+    EnvironmentType[EnvironmentType["Undefined"] = 0] = "Undefined";
+    EnvironmentType[EnvironmentType["OnPrem"] = 1] = "OnPrem";
+    EnvironmentType[EnvironmentType["Sandbox"] = 2] = "Sandbox";
+    EnvironmentType[EnvironmentType["Production"] = 3] = "Production";
+})(EnvironmentType = exports.EnvironmentType || (exports.EnvironmentType = {}));
 const CloudConfig = {
     name: "Microsoft cloud sandbox",
+    request: DebugConfigurationType.Launch,
+    type: constants_1.AlLanguageId,
+    environmentType: "Sandbox",
+    environmentName: 'sandbox',
     startupObjectId: 22,
     startupObjectType: "Page",
     breakOnError: true,
     launchBrowser: true,
     enableLongRunningSqlStatements: true,
-    enableSqlInformationDebugger: true,
+    enableSqlInformationDebugger: true
 };
 const LocalConfig = {
     name: "Your own server",
+    request: DebugConfigurationType.Launch,
+    type: constants_1.AlLanguageId,
+    environmentType: "OnPrem",
     server: "http://localhost",
     serverInstance: "BC170",
     authentication: "UserPassword",
@@ -73,19 +89,12 @@ var DependencyPublishingOption;
     DependencyPublishingOption[DependencyPublishingOption["Ignore"] = 1] = "Ignore";
     DependencyPublishingOption[DependencyPublishingOption["Strict"] = 2] = "Strict";
 })(DependencyPublishingOption = exports.DependencyPublishingOption || (exports.DependencyPublishingOption = {}));
-var DebugConfigurationType;
-(function (DebugConfigurationType) {
-    DebugConfigurationType["Launch"] = "launch";
-    DebugConfigurationType["Attach"] = "attach";
-    DebugConfigurationType["SnapshotInitialize"] = "snapshotInitialize";
-})(DebugConfigurationType = exports.DebugConfigurationType || (exports.DebugConfigurationType = {}));
 var DebugConfigurationFilter;
 (function (DebugConfigurationFilter) {
     DebugConfigurationFilter[DebugConfigurationFilter["Launch"] = 1] = "Launch";
     DebugConfigurationFilter[DebugConfigurationFilter["Attach"] = 2] = "Attach";
     DebugConfigurationFilter[DebugConfigurationFilter["SnapshotInitialize"] = 4] = "SnapshotInitialize";
-    DebugConfigurationFilter[DebugConfigurationFilter["SnapshotDebug"] = 8] = "SnapshotDebug";
-    DebugConfigurationFilter[DebugConfigurationFilter["All"] = 15] = "All";
+    DebugConfigurationFilter[DebugConfigurationFilter["All"] = 7] = "All";
 })(DebugConfigurationFilter = exports.DebugConfigurationFilter || (exports.DebugConfigurationFilter = {}));
 /**
  * The service responsible for working with launch.json file - generating it, reading configurations, etc.
@@ -109,7 +118,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
         disposable = vscode.debug.registerDebugAdapterDescriptorFactory(constants_1.AlLanguageId, alDebugAdapterDescriptorFactory);
         this.registerForDisposal(disposable);
     }
-    getDebugAdapterConfiguration(filter, configResolutionWorkspacePath) {
+    getDebugAdapterConfiguration(filter) {
         this.isConfigurationSetValue = false;
         const configurations = this.getConfigurations(filter);
         if (configurations.length === 0) {
@@ -126,7 +135,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
                 return resolve(configurations[0]);
             }
             else {
-                return this.chooseDebugConfiguration(configurations, configResolutionWorkspacePath).then(configurationChosen => resolve(configurationChosen), reject);
+                return this.chooseDebugConfiguration(configurations).then(configurationChosen => resolve(configurationChosen), reject);
             }
         });
     }
@@ -146,9 +155,13 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
             }
             let sqlDebugConfigurationOptions = this.getSqlConfigurationValues(configuration);
             let debugConfig = null;
+            let port = configuration.port;
             const currentWorkspace = workspaceHelpers.getCurrentWorkspaceFolder();
             if (configuration.request === DebugConfigurationType.Launch || configuration.request === DebugConfigurationType.Attach) {
                 const projectReferenceDefinitions = yield this.projectDependencyHandlerService.getProjectReferences(currentWorkspace);
+                if (!port) {
+                    port = constants_1.DefaultDevEndpointPort;
+                }
                 if (configuration.request === DebugConfigurationType.Launch) {
                     debugConfig = {
                         name: configuration.name,
@@ -158,7 +171,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
                         isRad: isRad,
                         justDebug: justDebug,
                         authentication: configuration.authentication,
-                        port: configuration.port,
+                        port: port,
                         schemaUpdateMode: configuration.schemaUpdateMode,
                         server: configuration.server,
                         serverInstance: configuration.serverInstance,
@@ -182,7 +195,10 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
                         deploymentId: configuration.deploymentId,
                         forceUpgrade: configuration.forceUpgrade,
                         useSystemSessionForDeployment: configuration.useSystemSessionForDeployment,
-                        snapshotFileName: configuration.snapshotFileName
+                        snapshotFileName: configuration.snapshotFileName,
+                        environmentType: configuration.environmentType,
+                        environmentName: configuration.environmentName,
+                        environment: configuration.environment,
                     };
                 }
                 else {
@@ -192,7 +208,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
                         type: constants_1.AlLanguageId,
                         request: configuration.request,
                         authentication: configuration.authentication,
-                        port: configuration.port,
+                        port: port,
                         server: configuration.server,
                         serverInstance: configuration.serverInstance,
                         tenant: configuration.tenant,
@@ -210,6 +226,9 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
                         deploymentId: configuration.deploymentId,
                         forceUpgrade: configuration.forceUpgrade,
                         useSystemSessionForDeployment: configuration.useSystemSessionForDeployment,
+                        environmentType: configuration.environmentType,
+                        environmentName: configuration.environmentName,
+                        environment: configuration.environment,
                     };
                 }
             }
@@ -217,18 +236,25 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
                 let clientType = configuration.breakOnNext === undefined ? BreakOnNext.WebServiceClient : configuration.breakOnNext;
                 let sessionId = configuration.sessionId === undefined ? -1 : configuration.sessionId;
                 let snapshotVerbosity = configuration.snapshotVerbosity === undefined ? SnapshotVerbosity.Full : configuration.snapshotVerbosity;
+                if (!port) {
+                    port = constants_1.DefaultSnapshotEndpointPort;
+                }
                 debugConfig = {
                     configuration: {
                         authentication: configuration.authentication,
                         server: configuration.server,
                         serverInstance: configuration.serverInstance,
-                        port: configuration.port,
+                        port: port,
                         tenant: configuration.tenant,
                         applicationFamily: configuration.applicationFamily,
                         sandboxName: configuration.sandboxName,
                         disableHttpRequestTimeout: configuration.disableHttpRequestTimeout,
                         deploymentId: configuration.deploymentId,
-                        environment: configuration.environment
+                        environment: configuration.environment,
+                        name: configuration.name,
+                        request: configuration.request,
+                        environmentType: configuration.environmentType,
+                        environmentName: configuration.environmentName
                     },
                     name: configuration.name,
                     type: constants_1.AlLanguageId,
@@ -250,14 +276,14 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
         if (!vscode.workspace.workspaceFolders) {
             return false;
         }
-        const w = this.getLaunchFilePath();
+        const w = this.getCurrentLaunchFilePath();
         if (!w) {
             return false;
         }
         return fs.existsSync(w);
     }
     isDirty() {
-        const w = this.getLaunchFilePath();
+        const w = this.getCurrentLaunchFilePath();
         if (!w) {
             return false;
         }
@@ -272,7 +298,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
         if (!this.isConfigured()) {
             return [];
         }
-        const w = this.getLaunchFilePath();
+        const w = this.getCurrentLaunchFilePath();
         if (!w) {
             return [];
         }
@@ -295,7 +321,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
         return configurations;
     }
     generateLaunchJson() {
-        const filePath = this.getLaunchFilePath();
+        const filePath = this.getCurrentLaunchFilePath();
         if (!filePath) {
             return Promise.reject(resources_1.default.noActiveWorkspaceFolder);
         }
@@ -319,7 +345,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
         });
     }
     openLaunchJson() {
-        const w = this.getLaunchFilePath();
+        const w = this.getCurrentLaunchFilePath();
         if (!w) {
             Promise.reject(resources_1.default.noActiveWorkspaceFolder);
         }
@@ -333,9 +359,9 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
     }
     getInitialConfigurations() {
         return this.getLocalConfig()
-            .catch(() => Object.assign({}, LaunchConfigHeader, LocalConfig))
-            .then(localConfig => this.chooseDebugConfiguration([Object.assign({}, LaunchConfigHeader, CloudConfig), Object.assign({}, LaunchConfigHeader, localConfig)])
-            .catch(() => Object.assign({}, LaunchConfigHeader, localConfig))
+            .catch(() => LocalConfig)
+            .then(localConfig => this.chooseDebugConfiguration([CloudConfig, localConfig])
+            .catch(() => localConfig)
             .then(config => [config]));
     }
     updateSnapshotDebugConfiguration(folder, config) {
@@ -371,25 +397,8 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
             launchFile.update("configurations", configs);
         }
     }
-    getLocalConfig() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const configuration = LocalConfig;
-            configuration.serverInstance = yield this.getServerInstanceForLocalLaunchConfiguration();
-            return configuration;
-        });
-    }
-    chooseDebugConfiguration(configurations, configResolutionWorkspacePath) {
+    chooseDebugConfiguration(configurations) {
         return new Promise((resolve, reject) => {
-            let configResolutionWorkspaceUri = undefined;
-            if (configResolutionWorkspacePath) {
-                configResolutionWorkspaceUri = vscode.Uri.file(configResolutionWorkspacePath);
-            }
-            else {
-                const currentWorkspace = workspaceHelpers.getCurrentWorkspaceFolder();
-                if (currentWorkspace) {
-                    configResolutionWorkspaceUri = currentWorkspace.uri;
-                }
-            }
             let configurationsWithName = configurations.map(x => {
                 return ({
                     label: x.name,
@@ -429,10 +438,20 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
             }
         });
     }
-    getLaunchFilePath() {
+    getLocalConfig() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const configuration = LocalConfig;
+            configuration.serverInstance = yield this.getServerInstanceForLocalLaunchConfiguration();
+            return configuration;
+        });
+    }
+    getCurrentLaunchFilePath() {
         const currentFolder = workspaceHelpers.getCurrentWorkspaceFolderPath();
-        if (currentFolder) {
-            return path.join(currentFolder, LaunchFilePath);
+        return this.getLaunchFilePath(currentFolder);
+    }
+    getLaunchFilePath(workspaceFolderPath) {
+        if (workspaceFolderPath) {
+            return path.join(workspaceFolderPath, LaunchFilePath);
         }
     }
     getServerInstanceForLocalLaunchConfiguration() {

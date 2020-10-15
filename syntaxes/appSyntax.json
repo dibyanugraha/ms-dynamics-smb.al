@@ -202,11 +202,11 @@
                     "GenerateLockedTranslations"
                 ],
                 "enumDescriptions": [
-                    "Generate and utilize translation files in xliff format",
-                    "Generate translation entries for captions for all application objects",
-                    "Exclude the generated translation file from the app",
-                    "Switch off the option of using implicit withs",
-                    "Generate translation entries in the template translation file for locked labels"
+                    "Generate and utilize translation files in XLIFF format.",
+                    "Generate translation entries for captions for all application objects.",
+                    "Exclude the generated translation file from the app.",
+                    "Switch off the option of using implicit withs.",
+                    "Generate translation entries in the template translation file for locked labels."
                 ]
             },
             "description": "Optional/experimental compiler features can be enabled by specifying them."

@@ -8,7 +8,9 @@ const configurationHelpers_1 = require("../configurationHelpers");
 const resources_1 = require("../resources");
 const status_1 = require("../status");
 const extensionService_1 = require("./extensionService");
+const initalizeDebugAdapterService_1 = require("./initalizeDebugAdapterService");
 const snapshotDebugger_1 = require("./snapshotDebugger");
+const constants_1 = require("../constants");
 /**
  * The service responsible for working with reference symbols.
  */
@@ -35,7 +37,7 @@ class SymbolsService extends extensionService_1.ExtensionService {
         const params = configurationHelpers_1.getAlParams();
         params.force = force;
         return this.editorService.saveAllDocuments()
-            .then(() => this.initalizeDebugAdapterService.getDebugAdapterConfiguration())
+            .then(() => this.initalizeDebugAdapterService.mapToDebugConfiguration(false, false, false, initalizeDebugAdapterService_1.DebugConfigurationFilter.Launch | initalizeDebugAdapterService_1.DebugConfigurationFilter.SnapshotInitialize))
             .catch(e => {
             status_1.outputChannel.appendLine(resources_1.default.noServerChosenError);
             throw e;
@@ -43,6 +45,16 @@ class SymbolsService extends extensionService_1.ExtensionService {
             .then(c => {
             if (snapshotDebugger_1.isSnapshotDebugAdapterConfiguration(c)) {
                 return Promise.resolve(true);
+            }
+            if (snapshotDebugger_1.isSnapshotInitializeDebugConfiguration(c)) {
+                // The snapshot initialize configuration protocol is different from the downloadsymbols protocol
+                // We need to map it.
+                let downloadConfig = this.mapSnapshotConfigurationToDownloadConfiguration(c);
+                params.isForSnapshotEndpoint = true;
+                return this.symbolsDownloader.downloadSymbols(downloadConfig, params);
+            }
+            if (!c.port) {
+                c.port = constants_1.DefaultDevEndpointPort;
             }
             return this.symbolsDownloader.downloadSymbols(c, params);
         })
@@ -54,6 +66,25 @@ class SymbolsService extends extensionService_1.ExtensionService {
     }
     activateMissingSymbolsMonitor() {
         this.symbolsDownloader.symbolsMissing.event(() => this.onSymbolsMissing());
+    }
+    mapSnapshotConfigurationToDownloadConfiguration(protocol) {
+        var _a;
+        return {
+            name: protocol.name,
+            request: protocol.request,
+            server: protocol.configuration.server,
+            authentication: protocol.configuration.authentication,
+            serverInstance: protocol.configuration.serverInstance,
+            port: (_a = protocol.configuration.port, (_a !== null && _a !== void 0 ? _a : constants_1.DefaultSnapshotEndpointPort)),
+            tenant: protocol.configuration.tenant,
+            applicationFamily: protocol.configuration.applicationFamily,
+            sandboxName: protocol.configuration.sandboxName,
+            disableHttpRequestTimeout: protocol.configuration.disableHttpRequestTimeout,
+            deploymentId: protocol.configuration.deploymentId,
+            environment: protocol.configuration.environment,
+            environmentName: protocol.configuration.environmentName,
+            environmentType: protocol.configuration.environmentType
+        };
     }
     onDownloadComplete(success, silent) {
         this.inProgress = false;

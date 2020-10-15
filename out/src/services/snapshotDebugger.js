@@ -33,11 +33,15 @@ class SnapshotDebugger {
 }
 exports.SnapshotDebugger = SnapshotDebugger;
 function isSnapshotDebuggerConfiguration(config) {
-    return config.request == initalizeDebugAdapterService_1.DebugConfigurationType.Launch && config.snapshotFileName;
+    return config.request === initalizeDebugAdapterService_1.DebugConfigurationType.Launch && config.snapshotFileName;
 }
 exports.isSnapshotDebuggerConfiguration = isSnapshotDebuggerConfiguration;
 function isSnapshotDebugAdapterConfiguration(config) {
     return config.snapshotFileName !== undefined;
 }
 exports.isSnapshotDebugAdapterConfiguration = isSnapshotDebugAdapterConfiguration;
+function isSnapshotInitializeDebugConfiguration(config) {
+    return config.request === initalizeDebugAdapterService_1.DebugConfigurationType.SnapshotInitialize;
+}
+exports.isSnapshotInitializeDebugConfiguration = isSnapshotInitializeDebugConfiguration;
 //# sourceMappingURL=snapshotDebugger.js.map

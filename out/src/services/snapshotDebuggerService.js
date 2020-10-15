@@ -324,9 +324,12 @@ class SnapshotDebuggerService extends extensionService_1.ExtensionService {
         return __awaiter(this, void 0, void 0, function* () {
             const w = workspaceHelpers.getCurrentWorkspaceFolder();
             if (!w) {
-                return Promise.reject();
+                return Promise.reject('current workspace retrieval error');
             }
             let config = yield this.initalizeDebugAdapterService.mapToDebugConfiguration(false, false, false, initalizeDebugAdapterService_1.DebugConfigurationFilter.SnapshotInitialize);
+            if (!config) {
+                return Promise.reject('configuration error');
+            }
             yield this.ensureAuthenticated(config);
             config.snapPointLocations = this.getBreakpoints();
             const params = Object.assign(config, configurationHelpers_1.getAlParams());

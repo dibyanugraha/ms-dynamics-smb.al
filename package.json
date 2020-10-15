@@ -2,7 +2,7 @@
 	"name": "al",
 	"displayName": "AL Language",
 	"description": "AL development tools for Dynamics 365 Business Central",
-	"version": "6.0.344420",
+	"version": "6.1.350698",
 	"publisher": "ms-dynamics-smb",
 	"icon": "img/AL_ext_logo.png",
 	"repository": {
@@ -614,6 +614,7 @@
 							"name": "${1:Publish: Your own server}",
 							"type": "al",
 							"request": "launch",
+							"environmentType": "OnPrem",
 							"server": "${2:http://localhost}",
 							"serverInstance": "${3:BC170}",
 							"authentication": "${4|UserPassword,Windows,AAD|}",
@@ -635,6 +636,8 @@
 							"name": "${0:Publish: Microsoft cloud sandbox}",
 							"type": "al",
 							"request": "launch",
+							"environmentType": "Sandbox",
+							"environmentName": "sandbox",
 							"startupObjectId": 22,
 							"breakOnError": true,
 							"breakOnRecordWrite": false,
@@ -652,6 +655,7 @@
 							"name": "${1:Attach: Your own server}",
 							"type": "al",
 							"request": "attach",
+							"environmentType": "OnPrem",
 							"server": "${2:http://localhost}",
 							"serverInstance": "${3:BC170}",
 							"authentication": "${4|UserPassword,Windows,AAD|}",
@@ -672,6 +676,8 @@
 							"name": "${0:Attach: Microsoft cloud sandbox}",
 							"type": "al",
 							"request": "attach",
+							"environmentType": "Sandbox",
+							"environmentName": "sandbox",
 							"breakOnError": true,
 							"breakOnRecordWrite": false,
 							"enableSqlInformationDebugger": true,
@@ -688,6 +694,8 @@
 							"name": "${0:snapshotInitialize: Microsoft production cloud}",
 							"type": "al",
 							"request": "snapshotInitialize",
+							"environmentType": "Production",
+							"environmentName": "production",
 							"breakOnNext": "WebClient"
 						}
 					},
@@ -698,6 +706,7 @@
 							"name": "${1:snapshotInitialize: Your own server}",
 							"type": "al",
 							"request": "snapshotInitialize",
+							"environmentType": "OnPrem",
 							"server": "${2:http://localhost}",
 							"serverInstance": "${3:BC170}",
 							"authentication": "${4|UserPassword,Windows,AAD|}",
@@ -785,7 +794,7 @@
 								],
 								"enumDescriptions": [
 									"Dependency publishing will be applied.",
-									"Dependency publishing is ignored.",
+									"Dependency publishing is ignored so that only leaf projects are published.",
 									"Dependency publishing will fail if there are any apps that directly depend on the startup project and these apps are not part of the workspace."
 								],
 								"description": "Specifies the publishing option to use. By specifying the Ignore option, only the current project is published, dependencies are ignored. By specifying the Strict option, publishing will fail if the project has apps that not part of the workspace and depend on it",
@@ -828,7 +837,25 @@
 							},
 							"sandboxName": {
 								"type": "string",
-								"description": "Specifies which sandox to use in cases where multiple sandboxes are owned by the same tenant."
+								"description": "Specifies which sandbox to use in cases where multiple sandboxes are owned by the same tenant.",
+								"deprecationMessage": "This setting is obsoleted. Please use the 'sandbox' environmentType and the environmentName settings instead."
+							},
+							"environmentName": {
+								"type": "string",
+								"description": "Specifies which production, or sandbox environment to use."
+							},
+							"environmentType": {
+								"enum": [
+									"OnPrem",
+									"Sandbox",
+									"Production"
+								],
+								"enumDescriptions": [
+									"Specifies an onprem environment",
+									"Specifies a sandbox environment",
+									"Specifies a production environment"
+								],
+								"description": "Specifies environment to use to connect to Business Central."
 							},
 							"disableHttpRequestTimeout": {
 								"type": "boolean",
@@ -940,7 +967,25 @@
 							},
 							"sandboxName": {
 								"type": "string",
-								"description": "Specifies which sandox to use in cases where multiple sandboxes are owned by the same tenant."
+								"description": "Specifies which sandbox to use in cases where multiple sandboxes are owned by the same tenant.",
+								"deprecationMessage": "This setting is obsoleted. Please use the 'sandbox' environmentType and the environmentName settings instead."
+							},
+							"environmentName": {
+								"type": "string",
+								"description": "Specifies which production, or sandbox environment to use."
+							},
+							"environmentType": {
+								"enum": [
+									"OnPrem",
+									"Sandbox",
+									"Production"
+								],
+								"enumDescriptions": [
+									"Specifies an onprem environment",
+									"Specifies a sandbox environment",
+									"Specifies a production environment"
+								],
+								"description": "Specifies environment to use to connect to Business Central."
 							},
 							"forceUpgrade": {
 								"type": "boolean",
@@ -971,6 +1016,11 @@
 								"type": "string",
 								"description": "The tenant to connect to.\nFor an on-premise server, this parameter must contain a tenant name, for example: MyTenant.\nFor a cloud server, this parameter must contain a tenant AAD domain name, for example: mycustomer.onmicrosoft.com",
 								"default": "default"
+							},
+							"port": {
+								"type": "number",
+								"description": "The snapshot debugger endpoint service port.",
+								"default": 7083
 							},
 							"applicationFamily": {
 								"type": "string",
@@ -1012,7 +1062,25 @@
 							},
 							"sandboxName": {
 								"type": "string",
-								"description": "Specifies which sandox to use in cases where multiple sandboxes are owned by the same tenant."
+								"description": "Specifies which sandbox to use in cases where multiple sandboxes are owned by the same tenant.",
+								"deprecationMessage": "This setting is obsoleted. Please use the 'sandbox' environmentType and the environmentName settings instead."
+							},
+							"environmentName": {
+								"type": "string",
+								"description": "Specifies which production, or sandbox environment to use."
+							},
+							"environmentType": {
+								"enum": [
+									"OnPrem",
+									"Sandbox",
+									"Production"
+								],
+								"enumDescriptions": [
+									"Specifies an on premise environment",
+									"Specifies a sandbox environment",
+									"Specifies a production environment"
+								],
+								"description": "Specifies environment to use to connect to Business Central."
 							},
 							"sessionId": {
 								"type": "integer",
@@ -1022,6 +1090,10 @@
 								"enum": [
 									"SnapPoint",
 									"Full"
+								],
+								"enumDescriptions": [
+									"Only allow stepping to lines with SnapPoints.",
+									"Allows stepping through every line executed."
 								],
 								"description": "Specifies the verbosity level of snapshot data. If SnapPoint is specified then stacktraces and line information will only be gathered on snap points.",
 								"default": "SnapPoint"

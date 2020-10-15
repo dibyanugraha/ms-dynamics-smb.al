@@ -17,21 +17,29 @@ const vscode = require("vscode");
 const constants_1 = require("./constants");
 const workspaceFolderHelpers_1 = require("./workspaceFolderHelpers");
 const fs_1 = require("fs");
-function getProjectRuntimeVersion(document) {
+function getProjectRuntimeVersionForWorkspace(workspace, defaultNumberIfNotFound) {
     return __awaiter(this, void 0, void 0, function* () {
-        const manifest = yield getManifest(document);
+        const manifest = yield getManifestForWorkspace(workspace);
         if (!manifest) {
-            return Promise.resolve(constants_1.ReferenceApplicationFileBasedGotoDefinitionMinVersion);
+            return undefined;
         }
-        let versionNumber = constants_1.ReferenceApplicationFileBasedGotoDefinitionMinVersion;
-        if (manifest.runtime) {
-            versionNumber = +manifest.runtime;
-        }
+        let versionNumber = getRuntimeVersionOrDefault(manifest, defaultNumberIfNotFound);
         return Promise.resolve(versionNumber);
     });
 }
-exports.getProjectRuntimeVersion = getProjectRuntimeVersion;
-function getManifest(document) {
+exports.getProjectRuntimeVersionForWorkspace = getProjectRuntimeVersionForWorkspace;
+function getProjectRuntimeVersionFromPreviewFile(document, defaultNumberIfNotFound) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const manifest = yield getManifestFromPreviewFile(document);
+        if (!manifest) {
+            return Promise.resolve(defaultNumberIfNotFound);
+        }
+        let versionNumber = getRuntimeVersionOrDefault(manifest, defaultNumberIfNotFound);
+        return Promise.resolve(versionNumber);
+    });
+}
+exports.getProjectRuntimeVersionFromPreviewFile = getProjectRuntimeVersionFromPreviewFile;
+function getManifestFromPreviewFile(document) {
     return __awaiter(this, void 0, void 0, function* () {
         let folderName = tryGetWorkspaceFolderPathFromPreviewFile(document);
         if (!folderName) {
@@ -41,6 +49,20 @@ function getManifest(document) {
             return undefined;
         }
         const workspaceUri = vscode.Uri.file(path.join(folderName, constants_1.AlProjectFileName));
+        const manifestObject = yield getManifestForWorkspace(workspaceUri);
+        return Promise.resolve(manifestObject);
+    });
+}
+exports.getManifestFromPreviewFile = getManifestFromPreviewFile;
+function getRuntimeVersionOrDefault(manifest, defaultNumberIfNotFound) {
+    let versionNumber = defaultNumberIfNotFound;
+    if (manifest.runtime) {
+        versionNumber = +manifest.runtime;
+    }
+    return versionNumber;
+}
+function getManifestForWorkspace(workspaceUri) {
+    return __awaiter(this, void 0, void 0, function* () {
         if (!fs_1.existsSync(workspaceUri.fsPath)) {
             return undefined;
         }
@@ -49,11 +71,9 @@ function getManifest(document) {
             return undefined;
         }
         const contentText = doc.getText();
-        const manifestObject = JSON.parse(contentText);
-        return Promise.resolve(manifestObject);
+        return Promise.resolve(JSON.parse(contentText));
     });
 }
-exports.getManifest = getManifest;
 function tryGetWorkspaceFolderPathFromPreviewFile(document) {
     if (document.scheme !== constants_1.AlPreviewSchema) {
         return undefined;

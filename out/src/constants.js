@@ -69,4 +69,7 @@ exports.DeserializeSnapshotContextInterval = 30 * 60 * 1000;
 exports.SnapshotFileNameExtension = ".zip";
 exports.DalExtensionName = ".dal";
 exports.localeDateTimeOptions = { year: 'numeric', month: 'short', day: 'numeric', hour: "2-digit", minute: "2-digit", second: "2-digit" };
+exports.DefaultDevEndpointPort = 7049;
+exports.DefaultSnapshotEndpointPort = 7083;
+exports.DefaultSandboxName = "sandbox";
 //# sourceMappingURL=constants.js.map

@@ -35,7 +35,7 @@ class AlDefinitionProvider extends extensionService_1.ExtensionService {
             // And here we return to the old paradigm. More the one definition would do lookup in the referenced symbol file
             // and if that is not found then a metadata reference source will be shown.
             let chosenConfiguration = null;
-            const version = yield manifestHelpers_1.getProjectRuntimeVersion(textDocument.uri);
+            const version = yield manifestHelpers_1.getProjectRuntimeVersionFromPreviewFile(textDocument.uri, constants_1.ReferenceApplicationFileBasedGotoDefinitionMinVersion);
             if (version < constants_1.ReferenceApplicationFileBasedGotoDefinitionMinVersion) {
                 const configurations = this.initalizeDebugAdapterService.getConfigurations();
                 if (configurations.length === 1) {

@@ -31,7 +31,9 @@ class PublishingService extends extensionService_1.ExtensionService {
                 tenant: configuration.tenant,
                 forceUpgrade: (_a = configuration.forceUpgrade, (_a !== null && _a !== void 0 ? _a : false)),
                 disableInstallDebugging: (_b = configuration.useSystemSessionForDeployment, (_b !== null && _b !== void 0 ? _b : false)),
-                environment: alParams.environmentInfo.env
+                environment: alParams.environmentInfo.env,
+                environmentType: configuration.environmentType,
+                environmentName: configuration.environmentName
             };
             return vscode.debug.activeDebugSession.customRequest(constants_1.AlPublish, params);
         }

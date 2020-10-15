@@ -1,5 +1,11 @@
-﻿10/01/2020 11:14:35 [/1] Editor Services Host v6.0.5.16750 starting (pid 1424)...
-10/01/2020 11:14:36 [/1] Editor Services Host started!
-10/01/2020 15:06:12 [/1] Editor Services Host exited normally.
-10/01/2020 15:28:39 [/1] Editor Services Host v6.0.5.16750 starting (pid 5732)...
-10/01/2020 15:28:39 [/1] Editor Services Host started!
+﻿10/13/2020 17:30:55 [/1] Editor Services Host v6.1.5.23028 starting (pid 9892)...
+10/13/2020 17:30:56 [/1] Editor Services Host started!
+10/13/2020 17:32:27 [/1] Editor Services Host exited normally.
+10/13/2020 17:43:52 [/1] Editor Services Host v6.1.5.23028 starting (pid 11260)...
+10/13/2020 17:43:53 [/1] Editor Services Host started!
+10/13/2020 17:58:44 [/20] Missed a didChangeMessage for file git:/d%3A/_kerja/AL/st_lukas_bc/TSDEVLP-02/Source/Table/xtTransCode.Table.al?%7B%22path%22%3A%22d%3A%5C%5C_kerja%5C%5CAL%5C%5Cst_lukas_bc%5C%5CTSDEVLP-02%5C%5CSource%5C%5CTable%5C%5CxtTransCode.Table.al%22%2C%22ref%22%3A%22%22%7D.
+10/13/2020 17:59:03 [/33] Missed a didChangeMessage for file git:/d%3A/_kerja/AL/st_lukas_bc/TSDEVLP-02/Source/Codeunits/xtUploadStudentFee.Codeunit.al?%7B%22path%22%3A%22d%3A%5C%5C_kerja%5C%5CAL%5C%5Cst_lukas_bc%5C%5CTSDEVLP-02%5C%5CSource%5C%5CCodeunits%5C%5CxtUploadStudentFee.Codeunit.al%22%2C%22ref%22%3A%22%22%7D.
+10/13/2020 17:59:55 [/1] Editor Services Host exited normally.
+10/13/2020 18:16:36 [/1] Editor Services Host v6.1.5.23028 starting (pid 14608)...
+10/13/2020 18:16:37 [/1] Editor Services Host started!
+10/13/2020 18:18:19 [/1] Editor Services Host exited normally.
