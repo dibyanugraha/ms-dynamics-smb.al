@@ -7,10 +7,10 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Microsoft.Dynamics.Nav.UICop/6.1.5.23028": {
+      "Microsoft.Dynamics.Nav.UICop/6.1.5.24898": {
         "dependencies": {
-          "Microsoft.Dynamics.Nav.Analyzers.Common": "6.1.5.23028",
-          "Microsoft.Dynamics.Nav.CodeAnalysis": "6.1.5.23028",
+          "Microsoft.Dynamics.Nav.Analyzers.Common": "6.1.5.24898",
+          "Microsoft.Dynamics.Nav.CodeAnalysis": "6.1.5.24898",
           "NETStandard.Library": "2.0.3",
           "Newtonsoft.Json": "10.0.1"
         },
@@ -1320,7 +1320,7 @@
           }
         }
       },
-      "Microsoft.Dynamics.Nav.AL.Common/6.1.5.23028": {
+      "Microsoft.Dynamics.Nav.AL.Common/6.1.5.24898": {
         "dependencies": {
           "Newtonsoft.Json": "10.0.1",
           "System.Runtime.Loader": "4.3.0",
@@ -1330,20 +1330,20 @@
           "Microsoft.Dynamics.Nav.AL.Common.dll": {}
         }
       },
-      "Microsoft.Dynamics.Nav.Analyzers.Common/6.1.5.23028": {
+      "Microsoft.Dynamics.Nav.Analyzers.Common/6.1.5.24898": {
         "dependencies": {
-          "Microsoft.Dynamics.Nav.CodeAnalysis": "6.1.5.23028",
+          "Microsoft.Dynamics.Nav.CodeAnalysis": "6.1.5.24898",
           "Newtonsoft.Json": "10.0.1"
         },
         "runtime": {
           "Microsoft.Dynamics.Nav.Analyzers.Common.dll": {}
         }
       },
-      "Microsoft.Dynamics.Nav.CodeAnalysis/6.1.5.23028": {
+      "Microsoft.Dynamics.Nav.CodeAnalysis/6.1.5.24898": {
         "dependencies": {
           "DocumentFormat.OpenXml": "2.9.1",
           "Microsoft.CodeAnalysis.CSharp": "2.9.0",
-          "Microsoft.Dynamics.Nav.AL.Common": "6.1.5.23028",
+          "Microsoft.Dynamics.Nav.AL.Common": "6.1.5.24898",
           "Mono.Cecil": "0.11.2",
           "Newtonsoft.Json": "10.0.1",
           "System.Diagnostics.FileVersionInfo": "4.3.0",
@@ -1358,7 +1358,7 @@
     }
   },
   "libraries": {
-    "Microsoft.Dynamics.Nav.UICop/6.1.5.23028": {
+    "Microsoft.Dynamics.Nav.UICop/6.1.5.24898": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -2056,17 +2056,17 @@
       "path": "system.xml.xpath.xdocument/4.3.0",
       "hashPath": "system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
     },
-    "Microsoft.Dynamics.Nav.AL.Common/6.1.5.23028": {
+    "Microsoft.Dynamics.Nav.AL.Common/6.1.5.24898": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Dynamics.Nav.Analyzers.Common/6.1.5.23028": {
+    "Microsoft.Dynamics.Nav.Analyzers.Common/6.1.5.24898": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Dynamics.Nav.CodeAnalysis/6.1.5.23028": {
+    "Microsoft.Dynamics.Nav.CodeAnalysis/6.1.5.24898": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
