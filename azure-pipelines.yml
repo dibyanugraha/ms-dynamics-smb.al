@@ -3,4 +3,4 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   steps:
-  - script: echo hello from Windows
+  - script: echo "Hello World"
