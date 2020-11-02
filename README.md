@@ -27,7 +27,7 @@ Read more about developing in AL in our documentation here: https://docs.microso
 If you encounter bugs with the extension, ensure you have the latest version of Visual Studio Code before reporting them through GitHub [https://github.com/microsoft/al/issues](https://github.com/microsoft/al/issues).
 
 ## License and Privacy
-The extension is made available under the following [Microsoft Software License Terms](https://go.microsoft.com/fwlink/?linkid=2138588) and the following [Microsoft Enterprise and Developer Privacy Statement](https://go.microsoft.com/fwlink/?linkid=2138587).
+The extension is made available under the [Microsoft Dynamics 365 Business Central License Terms](https://go.microsoft.com/fwlink/?linkid=852321) or the [Microsoft Dynamics 365 Business Central On-Premises License Terms](https://go.microsoft.com/fwlink/?linkid=2140800) depending on whether used for online or on-premise development, and the following [Microsoft Enterprise and Developer Privacy Statement](https://go.microsoft.com/fwlink/?linkid=2138587).
 
 ### Telemetry
 The AL Language extension collects telemetry data, which is used to help understand how to improve the product. For example, this data helps to debug issues, such as compiler crashes, slow compilation times, and to prioritize new features.

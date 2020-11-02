@@ -42,16 +42,23 @@
         },
         "targetVersion": {
             "type": "string",
-            "description": "Specifies the next minor version of the extension for the current branch. Only relevant when the default obsoleteTagPattern is used. For example this can take the values 16.0, 16.1 etc.",
+            "description": "Specifies the next Major.Minor version of the extension in the current branch in order to validate the ObsoleteTag values with AS0072. This is only relevant when the default obsoleteTagPattern '(\\d+)\\.(\\d+)' is used. This property is being deprecated in favor of obsoleteTagVersion.",
+            "pattern": "(\\d+)\\.(\\d+)"
+        },
+        "obsoleteTagVersion": {
+            "type": "string",
+            "description": "Specifies the next Major.Minor version of the extension in the current branch in order to validate the ObsoleteTag values with AS0072. This is only relevant when the default obsoleteTagPattern '(\\d+)\\.(\\d+)' is used.",
             "pattern": "(\\d+)\\.(\\d+)"
         },
         "obsoleteTagPattern": {
-            "description": "The Obsolete tag pattern to verify with Rule 76. This should be a valid regular expression. By default the pattern \\d+\\.\\d+ is used",
-            "type": "string"
+            "type": "string",
+            "description": "The Obsolete tag pattern used by AS0076. This should be a valid regular expression. By default, the pattern '(\\d+)\\.(\\d+)' is used.",
+            "default": "(\\d+)\\.(\\d+)"
         },
         "obsoleteTagPatternDescription": {
-            "description": "A human-readable description for the ObsoleteTagPattern regular expression. By Default Major.Minor is used",
-            "type": "string"
+            "type": "string",
+            "description": "A human-readable description for the ObsoleteTagPattern regular expression. This is used in diagnostics reported by AS0076. By default, 'Major.Minor' is used.",
+            "default": "Major.Minor"
         }
     }
 }

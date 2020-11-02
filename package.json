@@ -2,7 +2,7 @@
 	"name": "al",
 	"displayName": "AL Language",
 	"description": "AL development tools for Dynamics 365 Business Central",
-	"version": "6.1.352568",
+	"version": "6.1.359074",
 	"publisher": "ms-dynamics-smb",
 	"icon": "img/AL_ext_logo.png",
 	"repository": {

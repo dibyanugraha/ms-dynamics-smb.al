@@ -10,7 +10,7 @@
       "alc/1.0.0": {
         "dependencies": {
           "Microsoft.CodeAnalysis.CSharp": "2.9.0",
-          "Microsoft.Dynamics.Nav.CodeAnalysis": "6.1.5.24898",
+          "Microsoft.Dynamics.Nav.CodeAnalysis": "6.1.5.31404",
           "Newtonsoft.Json": "11.0.2",
           "System.Runtime.CompilerServices.Unsafe": "4.7.1",
           "System.Runtime.Loader": "4.3.0",
@@ -1851,7 +1851,7 @@
           "System.Xml.XPath": "4.3.0"
         }
       },
-      "Microsoft.Dynamics.Nav.AL.Common/6.1.5.24898": {
+      "Microsoft.Dynamics.Nav.AL.Common/6.1.5.31404": {
         "dependencies": {
           "Newtonsoft.Json": "11.0.2",
           "System.Runtime.Loader": "4.3.0",
@@ -1861,11 +1861,11 @@
           "Microsoft.Dynamics.Nav.AL.Common.dll": {}
         }
       },
-      "Microsoft.Dynamics.Nav.CodeAnalysis/6.1.5.24898": {
+      "Microsoft.Dynamics.Nav.CodeAnalysis/6.1.5.31404": {
         "dependencies": {
           "DocumentFormat.OpenXml": "2.9.1",
           "Microsoft.CodeAnalysis.CSharp": "2.9.0",
-          "Microsoft.Dynamics.Nav.AL.Common": "6.1.5.24898",
+          "Microsoft.Dynamics.Nav.AL.Common": "6.1.5.31404",
           "Mono.Cecil": "0.11.2",
           "Newtonsoft.Json": "11.0.2",
           "System.Diagnostics.FileVersionInfo": "4.3.0",
@@ -2667,12 +2667,12 @@
       "path": "system.xml.xpath.xdocument/4.3.0",
       "hashPath": "system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
     },
-    "Microsoft.Dynamics.Nav.AL.Common/6.1.5.24898": {
+    "Microsoft.Dynamics.Nav.AL.Common/6.1.5.31404": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Dynamics.Nav.CodeAnalysis/6.1.5.24898": {
+    "Microsoft.Dynamics.Nav.CodeAnalysis/6.1.5.31404": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
