@@ -2,7 +2,7 @@
 	"name": "al",
 	"displayName": "AL Language",
 	"description": "AL development tools for Dynamics 365 Business Central",
-	"version": "6.1.359074",
+	"version": "7.1.453917",
 	"publisher": "ms-dynamics-smb",
 	"icon": "img/AL_ext_logo.png",
 	"repository": {
@@ -36,7 +36,9 @@
 	"activationEvents": [
 		"onLanguage:al",
 		"workspaceContains:app.json",
-		"onCommand:al.go"
+		"onCommand:al.go",
+		"onDebugInitialConfigurations:al",
+		"onDebugResolve:al"
 	],
 	"main": "./out/src/extension",
 	"contributes": {
@@ -107,6 +109,10 @@
 			},
 			{
 				"language": "al",
+				"path": "./snippets/reportextension.json"
+			},
+			{
+				"language": "al",
 				"path": "./snippets/table.json"
 			},
 			{
@@ -123,6 +129,14 @@
 			},
 			{
 				"language": "al",
+				"path": "./snippets/permissionset.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/permissionsetextension.json"
+			},
+			{
+				"language": "al",
 				"path": "./snippets/profile.json"
 			},
 			{
@@ -132,6 +146,10 @@
 			{
 				"language": "xml",
 				"path": "./snippets/xml.json"
+			},
+			{
+				"language": "al",
+				"path": "./snippets/entitlement.json"
 			}
 		],
 		"grammars": [
@@ -391,11 +409,6 @@
 				"category": "AL"
 			},
 			{
-				"title": "Generate entitlements containing current extension objects",
-				"command": "al.generateEntitlementsForExtensionObjects",
-				"category": "AL"
-			},
-			{
 				"title": "Publish and open in the designer",
 				"command": "al.openPageDesigner",
 				"category": "AL"
@@ -436,6 +449,12 @@
 				"key": "F5",
 				"mac": "F5",
 				"when": "alExtensionActive && !inDebugMode"
+			},
+			{
+				"command": "al.publishExistingExtension",
+				"key": "Ctrl+F5",
+				"mac": "cmd+F5",
+				"when": "alExtensionActive && inDebugMode"
 			},
 			{
 				"command": "al.publishNoDebug",
@@ -578,10 +597,6 @@
 					"when": "alExtensionActive && !inDebugMode"
 				},
 				{
-					"command": "al.generateEntitlementsForExtensionObjects",
-					"when": "alExtensionActive && !inDebugMode"
-				},
-				{
 					"command": "al.insertEvent",
 					"when": "alExtensionActive && !inDebugMode"
 				},
@@ -615,8 +630,8 @@
 							"type": "al",
 							"request": "launch",
 							"environmentType": "OnPrem",
-							"server": "${2:http://localhost}",
-							"serverInstance": "${3:BC170}",
+							"server": "${2|http://bcserver,http://localhost|}",
+							"serverInstance": "${3:BC}",
 							"authentication": "${4|UserPassword,Windows,AAD|}",
 							"startupObjectId": 22,
 							"breakOnError": true,
@@ -649,15 +664,15 @@
 						}
 					},
 					{
-						"label": "Attach to the next client on your server",
+						"label": "AL: Attach to the next client on your server",
 						"description": "Attach to the next client on your server",
 						"body": {
 							"name": "${1:Attach: Your own server}",
 							"type": "al",
 							"request": "attach",
 							"environmentType": "OnPrem",
-							"server": "${2:http://localhost}",
-							"serverInstance": "${3:BC170}",
+							"server": "${2|http://bcserver,http://localhost|}",
+							"serverInstance": "${3:BC}",
 							"authentication": "${4|UserPassword,Windows,AAD|}",
 							"breakOnError": true,
 							"breakOnRecordWrite": false,
@@ -707,8 +722,8 @@
 							"type": "al",
 							"request": "snapshotInitialize",
 							"environmentType": "OnPrem",
-							"server": "${2:http://localhost}",
-							"serverInstance": "${3:BC170}",
+							"server": "${2|http://bcserver,http://localhost|}",
+							"serverInstance": "${3:BC}",
 							"authentication": "${4|UserPassword,Windows,AAD|}",
 							"breakOnNext": "WebClient"
 						}
@@ -721,7 +736,7 @@
 							"server": {
 								"type": "string",
 								"description": "The server url.",
-								"default": "http://localhost"
+								"default": "http://bcserver"
 							},
 							"port": {
 								"type": "number",
@@ -885,7 +900,7 @@
 							"server": {
 								"type": "string",
 								"description": "The server url.",
-								"default": "http://localhost"
+								"default": "http://bcserver"
 							},
 							"port": {
 								"type": "number",
@@ -1005,7 +1020,7 @@
 							"server": {
 								"type": "string",
 								"description": "The server url.",
-								"default": "http://localhost"
+								"default": "http://bcserver"
 							},
 							"serverInstance": {
 								"type": "string",
@@ -1125,7 +1140,7 @@
 		"glob": "^7.1.4",
 		"mocha": "^7.1.1",
 		"typescript": "^3.7.5",
-		"vscode-test": "^1.3.0"
+		"vscode-test": "^1.4.1"
 	},
 	"__metadata": {
 		"id": "fe889a8a-1498-4047-850d-eb8ea82de1d1",

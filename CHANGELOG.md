@@ -1,3 +1,132 @@
+﻿# Business Central 2021 release wave 1 update 1
+## Version 7.1
+For this update there are bug fixes and changes around a few different areas.
+
+### Snapshot debugging
+Snapshot debugging allows recording built-in codeunit based stack traces if there is a snappoint defined in the al file containing the subscription to the built-in code unit trigger event.
+
+### Reports extensions
+* Parameters and captions are now supported report layouts in report extensions
+* Debugging supported added for report extension
+* Added support for modify on dataitems with a set of triggers to go along with it.
+* There were a couple of issues around adding dataitems into the correct position, which caused layouts to not work correctly.
+* The checks for duplicate usage of identical names did not catch all cases.
+
+### Built-in functions and types
+* [#6568](https://github.com/microsoft/al/issues/6568). The deprecation warning has been removed from UploadIntoStream
+* [#6570](https://github.com/microsoft/al/issues/6570). The type ModuleInfo now contains a PackageId.
+* If the StartSession with the timeout was to be used, it required a record and company. That has been changed so they are not required.
+
+### Go to Definition
+* When a package has ShowMyCode set to false, then the editor will show a generated view from the symbol information available. That has been improved to include more objects.
+
+
+# Business Central 2021 release wave 1 update
+## Version 7.0.0
+### Report Extensibility
+We have introduced `reportextension` objects to the language that allows extension of report objects. Some of the operations that can be performed are:
+* Adding new dataitems to the base report's dataset
+* Adding new columns to a base report's dataitem
+* Extending the request page (e.g. adding new fields)
+* Defining additional report triggers
+* Defining additional request page triggers
+* Defining additional layouts that will be made available for the base report
+Use the `treportextension` snippet to get started!
+
+### Return complex types from methods
+We now allow complex types to be returned from methods. This includes user-defined types like codeunits and records, but also most built-in types. The syntax is similar to variable/parameter declarations.
+
+```
+procedure GetCustomerByName(Name: Text) Customer: record Customer;
+begin
+end;
+
+procedure GetHttpClient(): HttpClient;
+begin
+end;
+```
+
+### Permission sets and permission set extensions
+With this release we now support defining permission sets in AL objects. Among the benefits are
+* Deployed as metadata and hence easy to update
+* Easy to read source format
+* Support for IntelliSense, comments, navigation, and diagnostics
+
+The new permission set objects are extensible. An existing permission set can be extended with additional permissions to easily grant more access to users that already are assigned the permission set.
+
+Use the `tpermissionset` or `tpermissionsetextension` snippet to get started!
+
+### OnAfterLookup trigger
+We have added a new trigger on page fields with `TableRelation` properties to support scenarios where you in code want to set others fields based on the selected record.
+
+```AL
+field(ItemNo; Rec.No)
+{
+    trigger OnAfterLookup(Selected: RecordRef)
+    var
+        Item: record Item;
+    begin
+        Selected.SetTable(Item);
+        Rec.Description := Item.Description;
+    end;
+}
+field(ItemDescription; Rec.Description)
+{
+    TableRelation = Item.Description;
+
+    trigger OnAfterLookup(Selected: RecordRef)
+    var
+        Item: record Item;
+    begin
+        Selected.SetTable(Item);
+        Rec.ItemNo := Item."No.";
+    end;
+}
+```
+
+The OnAfterLookup trigger supports split-relations.
+
+### Interface Obsoletion
+Interfaces can now be obsoleted using `ObsoleteState`, `ObsoleteReason`, and `ObsoleteTag`.
+For interface procedures, the obsolete reason and tag can be specified in the `Obsolete` attribute: `[Obsolete(<Reason>,<tag>)]`
+
+### Support for Access Property on Enums and Interfaces.
+It is now possible to mark Enums and Interfaces as `internal` to a module.
+
+### Control if locked labels should generate translation entries
+When the "TranslationFile" setting is enabled, a template file with labels that can be sent for translation is generated. In previous versions, labels marked with `Locked = true` would be included in the template file, but marked so that they would be excluded from translation. With this change, these entries will no longer, by default, be included. If the flag `GenerateLockedTranslations` is added to the feature list in the app.json file, however, these entries are generated.
+
+### Added cross-reference information generation
+Compiling from the command line using the /generatecrossreferences or /xref option generates DGML and JSON files containing a serialized representation of the cross-reference graph.
+DGML files can be loaded in Visual Studio for advanced visualizations and manipulation using the Code Map feature.
+
+
+### Improvements to the AppSourceCop analyzer
+
+As a continuation of the previous releases, we improved existing AppSourceCop code analyzer rules based on partner feedback and added new ones covering additional scenarios. More information can be found in our [online documentation](https://docs.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/analyzers/appsourcecop). We also introduced a new configuration setting to specify a dedicated folder for the baseline packages to be used for breaking changes validation. For more information, see [AS0003](https://docs.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/analyzers/appsourcecop-as0003-previousversionnotfound) and [AS0091](https://docs.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/analyzers/appsourcecop-as0091-previousversiondependencynotfound).
+
+# Business Central 2020 release wave 2 update 5
+## Version 6.5
+### Bugs fixed
+* Fixed an issue which caused some labels and captions to not be translated in a dedicated language extension.
+* Error "Constant value XXX is outside of the valid ordinal range for this Enum type" is no longer thrown when using an extended enum field with ValuesAllowed property.
+
+# Business Central 2020 release wave 2 update 4
+## Version 6.4
+### Bugs fixed
+* Add a message to sandbox publishing that extensions which have been published from Visual Studio Code are removed when the environment is updated or relocated within our service.
+* Set compatibility for NavigationPageId and Multiplicity to 6.3. Github issue: https://github.com/microsoft/AL/issues/6436
+* Use DropDown instead of Dropdown. Github issue: https://github.com/microsoft/AL/issues/6428
+* Interface implementation validation sometimes falsely logs an error if a member is already implemented.
+* Use of obsolete page variables are not showing warnings when used as variables.
+* Full diagnostics are sometimes not reported when .NET types are included.
+* Fixed report column decimal places format. Github issue: https://github.com/microsoft/AL/issues/5880
+* Fix compatibility definition of certain properties. Github issue: https://github.com/microsoft/AL/issues/6368
+* Fixed naming of XMLPort. https://github.com/microsoft/AL/issues/6304
+* Add equivalence between Visual Studio Code 'Start Debugging' command and al.publish, respectively 'Run without Debugging' command and al.publishNoDebug command.
+* 'Trigger Parameter Hint' (Ctrl+Shift+Space) command is not working. Github issue: https://github.com/microsoft/AL/issues/6379
+* Support for variables larger then 1 Kb on the debug console.
+
 # Business Central 2020 release wave 2 update
 ## Version 6.0.0
 ### SnapshotDebugger
@@ -25,7 +154,7 @@ With this release we have added a new attribute Caption that can be applied to p
 ### Documentation Comments
 With this release we support documentation comments for AL similar to C#. Documentation comments are structured comments preceded with a three slashes (///) instead of the usual two slashes (//). The documentation comment a special syntax that contains XML text. The documentation comment must immediately precede a user-defined type that it annotates, for example a codeunit, table, or interface, or a member such as a field or method.
 There is IntelliSense support for writing documentation comments. Most importantly providing a template documentation comment when writing the third slash in the triple slash.
-Documentation comments are visible when hovering over source symbols, in completion lists, and in signature help. 
+Documentation comments are visible when hovering over source symbols, in completion lists, and in signature help.
 Improve your source code by adding documentation comments.
 
 ### Preprocessor directives

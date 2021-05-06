@@ -24,16 +24,24 @@ class AlDebugConfigurationProvider {
         if (snapshotDebugger_1.isSnapshotDebuggerConfiguration(debugConfiguration)) {
             return Promise.resolve(debugConfiguration);
         }
+        const publishOnly = this.getPublishOnlyConfig(debugConfiguration);
+        if (debugConfiguration.request === initalizeDebugAdapterService_1.DebugConfigurationType.Launch &&
+            !debugConfiguration.isResolved) {
+            const buildService = this.initalizeDebugAdapterService.BuildService;
+            if (buildService) {
+                // This is the scenario when we are called either from :
+                // a. Clicking the Run\Start Debugging or Run\Run without debugging menu items
+                // b. Or the Start Debugging button was clicked with an AL configuration selected.
+                // We want to do exactly the same as if al.publish or the al.publishNoDebug commands have been called.
+                // That is we want to issue a build before starting the publishing/debugging.
+                return buildService.build(false).then(() => this.initalizeDebugAdapterService.resolveDebugConfiguration(publishOnly, false, false, debugConfiguration));
+            }
+        }
         // ALl F5 based operations (Ctrl F5, Shift Ctrl F5) end up here, besides clicking on the debug button will end up here.
         // We have to be sure that we preserve existing state which is always set when we issue an F5 based operation.
         // Do not pass undefined, just initialize to false if undefined.
         const isRad = debugConfiguration.isRad !== undefined ? debugConfiguration.isRad : false;
-        const publishOnly = debugConfiguration.publishOnly !== undefined ? debugConfiguration.publishOnly : false;
         let justDebug = false;
-        // If we click the debug button then we will do as Ctrl Shift F5 does.
-        // Basically clicking on the debug button means that we want to debug without publishing.
-        // This is by design since we do not want to triger a build on the language server at this point.
-        // Eventhough the DAP protocol is not initiated it is still comsifdered to be part this of the DAP API.
         if (!isRad && !publishOnly) {
             justDebug = debugConfiguration.justDebug !== undefined ? debugConfiguration.justDebug : true;
         }
@@ -44,6 +52,17 @@ class AlDebugConfigurationProvider {
             // Do not start debugging but instead open the debug configuration.
             return null;
         }
+    }
+    getPublishOnlyConfig(debugConfiguration) {
+        let publishOnly = false;
+        if (debugConfiguration.publishOnly !== undefined) {
+            publishOnly = debugConfiguration.publishOnly;
+        }
+        else if (debugConfiguration.noDebug !== undefined) {
+            // Set by the command Ctrl F5 issued from VScode.
+            publishOnly = debugConfiguration.noDebug;
+        }
+        return publishOnly;
     }
 }
 exports.AlDebugConfigurationProvider = AlDebugConfigurationProvider;

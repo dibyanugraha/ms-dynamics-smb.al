@@ -21,7 +21,6 @@ const insertEventSubscriberService_1 = require("./services/insertEventSubscriber
 const openExternallyService_1 = require("./services/openExternallyService");
 const openPageDesignerService_1 = require("./services/openPageDesignerService");
 const permissionSetService_1 = require("./services/permissionSetService");
-const entitlementsService_1 = require("./services/entitlementsService");
 const referenceContentProvider_1 = require("./services/referenceContentProvider");
 const symbolsDownloader_1 = require("./services/symbolsDownloader");
 const symbolsService_1 = require("./services/symbolsService");
@@ -53,7 +52,7 @@ class AlExtension {
     }
     activateServices(context) {
         const contextImpl = new extensionContext_1.ExtensionContextImpl(context);
-        const initalizeDebugAdapterService = new initalizeDebugAdapterService_1.InitializeDebugAdapterService(contextImpl, false, null);
+        const initalizeDebugAdapterService = new initalizeDebugAdapterService_1.InitializeDebugAdapterService(contextImpl, false, null, null);
         this.services.push(initalizeDebugAdapterService);
         const editorService = new editorService_1.EditorService(contextImpl, initalizeDebugAdapterService);
         this.services.push(editorService);
@@ -80,6 +79,7 @@ class AlExtension {
         const snapshotDebuggerService = new snapshotDebuggerService_1.SnapshotDebuggerService(contextImpl, new serverProxy_1.ServerProxy(languageServerClient), initalizeDebugAdapterService);
         this.services.push(snapshotDebuggerService);
         const buildService = new buildService_1.BuildService(contextImpl, languageServerClient, symbolsService, initalizeDebugAdapterService, editorService, projectDependencyHandlerService);
+        initalizeDebugAdapterService.BuildService = buildService;
         this.services.push(buildService);
         const openPageService = new openPageDesignerService_1.OpenPageDesignerService(contextImpl, initalizeDebugAdapterService, languageServerClient, buildService);
         this.services.push(openPageService);
@@ -91,8 +91,6 @@ class AlExtension {
         this.services.push(openExternallyService);
         const permissionSetGeneratorService = new permissionSetService_1.PermissionSetService(contextImpl, languageServerClient);
         this.services.push(permissionSetGeneratorService);
-        const entitlementsGeneratorService = new entitlementsService_1.EntitlementsService(contextImpl, languageServerClient);
-        this.services.push(entitlementsGeneratorService);
         const publishingService = new publishingService_1.PublishingService(contextImpl);
         this.services.push(publishingService);
         const openEventRecorderService = new openEventRecorderService_1.OpenEventRecorderService(contextImpl, initalizeDebugAdapterService, languageServerClient);

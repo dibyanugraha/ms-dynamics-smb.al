@@ -77,7 +77,8 @@ class BootstrapService extends extensionService_1.ExtensionService {
         };
         return new Promise((resolve) => {
             vscode.window.showQuickPick([
-                createItem("6.0", "Business Central 2020 release wave 2", true),
+                createItem("7.0", "Business Central 2021 release wave 1", true),
+                createItem("6.0", "Business Central 2020 release wave 2"),
                 createItem("5.0", "Business Central 2020 release wave 1"),
                 createItem("4.0", "Business Central 2019 release wave 2"),
                 createItem("3.0", "Business Central Spring '19 Release"),

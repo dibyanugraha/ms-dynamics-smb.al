@@ -95,10 +95,15 @@ class BuildService extends extensionService_1.ExtensionService {
             }
             status_1.outputChannel.show();
             status_1.outputChannel.clear();
+            yield this.build(isRad);
+            return Promise.resolve(true);
+        });
+    }
+    build(isRad) {
+        return __awaiter(this, void 0, void 0, function* () {
             yield this.editorService.saveAllDocuments()
                 .then(() => this.downloadSymbolsOnce())
                 .then(() => this.performBuild(isRad));
-            return Promise.resolve(true);
         });
     }
     publishContainer(publishOnly, isRad) {
@@ -184,7 +189,7 @@ class BuildService extends extensionService_1.ExtensionService {
                     .then((response) => __awaiter(this, void 0, void 0, function* () {
                     status_1.outputChannel.appendLine(response.success ? resources_1.default.packageCreatedMessage : resources_1.default.packageNotCreatedError);
                     if (response.success) {
-                        yield this.copyOutputFileToAllWorkspacesDependingOnCurrentWorkspace(response.outputPath).then(() => {
+                        yield this.copyOutputFileToAllWorkspaceFoldersDependingOnCurrentWorkspaceFolder(response.outputPath).then(() => {
                             this.context.workspaceState.update(constants_1.SymbolsCheckedStateKey, true);
                             resolve();
                         }, (rejected) => reject(rejected));
@@ -200,7 +205,7 @@ class BuildService extends extensionService_1.ExtensionService {
         });
     }
     reloadRadFile() {
-        return new Promise((resolve, reject) => {
+        return new Promise(() => {
             return this.languageServerClient.sendRequest(constants_1.AlReloadRadFileRequest, {});
         });
     }
@@ -214,9 +219,9 @@ class BuildService extends extensionService_1.ExtensionService {
         this.languageServerClient.sendRequest(constants_1.AlClearCredentialsCacheRequest, {});
         return Promise.resolve();
     }
-    copyOutputFileToAllWorkspacesDependingOnCurrentWorkspace(outputPath) {
+    copyOutputFileToAllWorkspaceFoldersDependingOnCurrentWorkspaceFolder(outputPath) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.projectDependencyHandlerService.copyOutputFileToAllWorkspacesDependingOnCurrentWorkspace(outputPath);
+            yield this.projectDependencyHandlerService.copyOutputFileToAllWorkspaceFoldersDependingOnCurrentWorkspaceFolder(outputPath);
         });
     }
 }

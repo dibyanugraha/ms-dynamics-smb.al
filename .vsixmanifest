@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Language="en-US" Id="al" Version="6.1.359074" Publisher="ms-dynamics-smb"/>
+    <Identity Language="en-US" Id="al" Version="7.1.453917" Publisher="ms-dynamics-smb"/>
     <DisplayName>AL Language</DisplayName>
     <Description xml:space="preserve">AL development tools for Dynamics 365 Business Central</Description>
     <Tags>Dynamics 365 Business Central,AL,SMB,ERP,theme,icon-theme,snippet,keybindings,debuggers,json,al,__ext_al,__ext_dal</Tags>

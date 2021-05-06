@@ -86,7 +86,7 @@ class ProjectDependencyHandlerService extends extensionService_1.ExtensionServic
             });
         });
     }
-    copyOutputFileToAllWorkspacesDependingOnCurrentWorkspace(outputPath) {
+    copyOutputFileToAllWorkspaceFoldersDependingOnCurrentWorkspaceFolder(outputPath) {
         return __awaiter(this, void 0, void 0, function* () {
             const currentWorkspaceFolder = workspaceHelpers.getCurrentWorkspaceFolder();
             const currentWorkspaceFile = vscode.Uri.file(path.join(currentWorkspaceFolder.uri.fsPath, constants_1.AlProjectFileName));

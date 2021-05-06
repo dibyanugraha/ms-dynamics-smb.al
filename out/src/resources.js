@@ -30,8 +30,6 @@ exports.default = {
     "symbolsMissingWarning": "Symbols are missing",
     "permissionSetSuccessfullyGenerated": "Permission set containing permissions to all objects from this extension has been generated",
     "permissionSetNotGenerated": "Generating permission set failed",
-    "entitlementsSuccessfullyGenerated": "Entitlements containing permission sets to all objects from this extension has been generated",
-    "entitlementsNotGenerated": "Entitlements generating failed",
     "downloadSourceSuccess": "The latest changes from the server have been applied.",
     "downloadSourceFailure": "Could not download package. Please see the Visual Studio Code output log for more details.",
     "incognitoRequiresBrowserSetting": "The 'al.incognito' setting can only be used if the 'al.browser' setting is set to a value different from 'SystemDefault'",

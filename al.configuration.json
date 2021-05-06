@@ -25,6 +25,12 @@
         ["Then begin", "end;"],
         ["Then Begin", "End"],
         ["Then Begin", "End;"],
+        ["CASE", "END"],
+        ["CASE", "END;"],
+        ["case", "end"],
+        ["case", "end;"],
+        ["Case", "End"],
+        ["Case", "End;"],
         ["BEGIN", "END;"],
         ["begin", "end;"],
         ["Begin", "End;"]
@@ -48,6 +54,12 @@
         { "open": "Then begin", "close": "end;", "notIn": ["string", "comment"] },
         { "open": "Then Begin", "close": "End", "notIn": ["string", "comment"] },
         { "open": "Then Begin", "close": "End;", "notIn": ["string", "comment"] },
+        { "open": "CASE", "close": "END", "notIn": ["string", "comment"] },
+        { "open": "CASE", "close": "END;", "notIn": ["string", "comment"] },
+        { "open": "case", "close": "end", "notIn": ["string", "comment"] },
+        { "open": "case", "close": "end;", "notIn": ["string", "comment"] },
+        { "open": "Case", "close": "End", "notIn": ["string", "comment"] },
+        { "open": "Case", "close": "End;", "notIn": ["string", "comment"] },
         { "open": "BEGIN", "close": "END;", "notIn": ["string", "comment"] },
         { "open": "begin", "close": "end;", "notIn": ["string", "comment"] },
         { "open": "Begin", "close": "End;", "notIn": ["string", "comment"] },
@@ -59,7 +71,10 @@
     ],
     "surroundingPairs": [
         ["'", "'"],
-        ["\"", "\""]
+        ["\"", "\""],
+        ["(", ")"],
+        ["{", "}"],
+        ["[", "]"]
     ],
     "folding": {
         "markers": {

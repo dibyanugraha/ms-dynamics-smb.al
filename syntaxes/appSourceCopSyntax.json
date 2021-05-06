@@ -16,7 +16,13 @@
         "version": {
             "type": "string",
             "description": "The version of a previous version of this package with which you want to compare the current package for breaking changes.",
-            "pattern": "(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)"
+            "pattern": "(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)",
+            "default": "1.0.0.0"
+        },
+        "baselinePackageCachePath":{
+            "type": "string",
+            "description": "The path to the folder containing the baseline and its dependencies with which you want to compare the current package for breaking changes. By default, the package cache path for the current project is used (see 'al.packageCachePath' setting).",
+            "default": "./.appSourceCopPackages"
         },
         "mandatoryAffixes": {
             "type": "array",
@@ -43,17 +49,25 @@
         "targetVersion": {
             "type": "string",
             "description": "Specifies the next Major.Minor version of the extension in the current branch in order to validate the ObsoleteTag values with AS0072. This is only relevant when the default obsoleteTagPattern '(\\d+)\\.(\\d+)' is used. This property is being deprecated in favor of obsoleteTagVersion.",
-            "pattern": "(\\d+)\\.(\\d+)"
+            "pattern": "^(\\d+)\\.(\\d+)$",
+            "default": "1.0"
         },
         "obsoleteTagVersion": {
             "type": "string",
             "description": "Specifies the next Major.Minor version of the extension in the current branch in order to validate the ObsoleteTag values with AS0072. This is only relevant when the default obsoleteTagPattern '(\\d+)\\.(\\d+)' is used.",
-            "pattern": "(\\d+)\\.(\\d+)"
+            "pattern": "^(\\d+)\\.(\\d+)$",
+            "default": "1.0"
+        },
+        "obsoleteTagAllowedVersions": {
+            "type": "string",
+            "description": "A comma-separated list of Major.Minor versions that will be allowed as ObsoleteTag values by AS0072. This is only relevant when the default obsoleteTagPattern '(\\d+)\\.(\\d+)' is used. ",
+            "pattern": "^(\\d+)\\.(\\d+)(,(\\d+)\\.(\\d+))*$",
+            "default": "1.0,2.0"
         },
         "obsoleteTagPattern": {
             "type": "string",
             "description": "The Obsolete tag pattern used by AS0076. This should be a valid regular expression. By default, the pattern '(\\d+)\\.(\\d+)' is used.",
-            "default": "(\\d+)\\.(\\d+)"
+            "default": "^(\\d+)\\.(\\d+)$"
         },
         "obsoleteTagPatternDescription": {
             "type": "string",

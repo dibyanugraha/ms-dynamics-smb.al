@@ -6,7 +6,7 @@
     "properties": {
         "id": {
             "$ref": "#/definitions/guid",
-            "description": "GUID of the app package"
+            "description": "GUID of the app package. Before changing it for a deployed package please see: https://go.microsoft.com/fwlink/?linkid=2153776"
         },
         "name": {
             "type": "string",
@@ -271,16 +271,46 @@
             "anyOf": [
                 {
                     "enum": [
+                        "7.1",
+                        "7.0",
+                        "6.5",
+                        "6.4",
+                        "6.3",
+                        "6.2",
+                        "6.1",
                         "6.0",
+                        "5.4",
+                        "5.3",
+                        "5.2",
+                        "5.1",
                         "5.0",
+                        "4.4",
+                        "4.3",
+                        "4.2",
+                        "4.1",
                         "4.0",
                         "3.0",
                         "2.0",
                         "1.0"
                     ],
                     "enumDescriptions": [
+                        "Business Central 2021 release wave 1 update 18.1",
+                        "Business Central 2021 release wave 1",
+                        "Business Central 2020 release wave 2 update 17.5",
+                        "Business Central 2020 release wave 2 update 17.4",
+                        "Business Central 2020 release wave 2 update 17.3",
+                        "Business Central 2020 release wave 2 update 17.2",
+                        "Business Central 2020 release wave 2 update 17.1",
                         "Business Central 2020 release wave 2",
+                        "Business Central 2020 release wave 1 update 16.4",
+                        "Business Central 2020 release wave 1 update 16.3",
+                        "Business Central 2020 release wave 1 update 16.2",
+                        "Business Central 2020 release wave 1 update 16.1",
                         "Business Central 2020 release wave 1",
+                        "Business Central 2019 release wave 2 update 15.4",
+                        "Business Central 2019 release wave 2 update 15.3",
+                        "Business Central 2019 release wave 2 update 15.2",
+                        "Business Central 2019 release wave 2 update 15.1",
                         "Business Central 2019 release wave 2",
                         "Business Central Spring '19 Release",
                         "Business Central Fall '18 Release",

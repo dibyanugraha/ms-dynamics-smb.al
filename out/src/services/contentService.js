@@ -28,7 +28,7 @@ class ContentService extends extensionService_1.ExtensionService {
         }
     }
     activate() {
-        const disposable = vscode.commands.registerCommand("al.generateManifest", () => this.generateAppJson(workspaceHelpers.getCurrentWorkspaceFolderPath(), "6.0", true));
+        const disposable = vscode.commands.registerCommand("al.generateManifest", () => this.generateAppJson(workspaceHelpers.getCurrentWorkspaceFolderPath(), "7.0", true));
         this.registerForDisposal(disposable);
     }
     generateAppJson(rootPath, targetPlatform, show = false) {
@@ -84,6 +84,7 @@ class ContentService extends extensionService_1.ExtensionService {
     }
     static generateDependencies(targetPlatform) {
         switch (targetPlatform) {
+            case "7.0":
             case "6.0":
                 return [];
             case "5.0":
@@ -126,18 +127,20 @@ class ContentService extends extensionService_1.ExtensionService {
     }
     static getPlatformVersion(targetPlatform) {
         switch (targetPlatform) {
-            case "6.0": return "17.0.0.0";
-            case "5.0": return "16.0.0.0";
-            case "4.0": return "15.0.0.0";
-            case "3.0": return "14.0.0.0";
-            case "2.0": return "13.0.0.0";
-            case "1.0": return "12.0.0.0";
+            case "7.0": return "1.0.0.0";
+            case "6.0": return "1.0.0.0";
+            case "5.0": return "1.0.0.0";
+            case "4.0": return "1.0.0.0";
+            case "3.0": return "1.0.0.0";
+            case "2.0": return "1.0.0.0";
+            case "1.0": return "1.0.0.0";
             default:
                 throw new Error(`Unknown version ${targetPlatform}`);
         }
     }
     static getApplicationVersion(targetPlatform) {
         switch (targetPlatform) {
+            case "7.0": return "18.0.0.0";
             case "6.0": return "17.0.0.0";
             case "5.0": return null;
             case "4.0": return null;
@@ -150,6 +153,7 @@ class ContentService extends extensionService_1.ExtensionService {
     }
     static getInvalidProperties(targetPlatform) {
         switch (targetPlatform) {
+            case "7.0":
             case "6.0":
                 return [];
             case "5.0":
@@ -191,7 +195,7 @@ pageextension 50100 CustomerListExt extends "Customer List"
         vscode.window.showWarningMessage(resources_1.default.manifestMissingWarning, resources_1.default.generateManifestAction)
             .then(choice => {
             if (choice === resources_1.default.generateManifestAction) {
-                this.generateAppJson(workspaceHelpers.getCurrentWorkspaceFolderPath(), "6.0", true);
+                this.generateAppJson(workspaceHelpers.getCurrentWorkspaceFolderPath(), "7.0", true);
             }
         });
     }

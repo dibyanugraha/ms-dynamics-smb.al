@@ -61,8 +61,8 @@ const LocalConfig = {
     request: DebugConfigurationType.Launch,
     type: constants_1.AlLanguageId,
     environmentType: "OnPrem",
-    server: "http://localhost",
-    serverInstance: "BC170",
+    server: "http://bcserver",
+    serverInstance: "BC",
     authentication: "UserPassword",
     startupObjectId: 22,
     startupObjectType: "Page",
@@ -100,10 +100,17 @@ var DebugConfigurationFilter;
  * The service responsible for working with launch.json file - generating it, reading configurations, etc.
  */
 class InitializeDebugAdapterService extends extensionService_1.ExtensionService {
-    constructor(context, isConfigurationSetValue, projectDependencyHandlerService) {
+    constructor(context, isConfigurationSetValue, projectDependencyHandlerService, buildServiceImpl) {
         super(context);
         this.isConfigurationSetValue = isConfigurationSetValue;
         this.projectDependencyHandlerService = projectDependencyHandlerService;
+        this.buildServiceImpl = buildServiceImpl;
+    }
+    set BuildService(build) {
+        this.buildServiceImpl = build;
+    }
+    get BuildService() {
+        return this.buildServiceImpl;
     }
     set ProjectDependencyHandlerService(dependency) {
         this.projectDependencyHandlerService = dependency;
@@ -265,6 +272,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
                     snapshotVerbosity: snapshotVerbosity
                 };
             }
+            debugConfig.isResolved = true;
             this.isConfigurationSetValue = true;
             return Promise.resolve(debugConfig);
         });
@@ -473,21 +481,7 @@ class InitializeDebugAdapterService extends extensionService_1.ExtensionService 
         });
     }
     getServerInstanceByRuntime(runtime = null) {
-        switch (runtime) {
-            case "1.0":
-                return "BC120";
-            case "2.0":
-                return "BC130";
-            case "3.0":
-                return "BC140";
-            case "4.0":
-                return "BC150";
-            case "5.0":
-                return "BC160";
-            case "6.0":
-            default:
-                return "BC170";
-        }
+        return "BC";
     }
     getInitialFileContent() {
         return this.getInitialConfigurations()

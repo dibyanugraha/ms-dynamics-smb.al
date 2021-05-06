@@ -26,7 +26,6 @@ exports.AlDeviceLoginEvent = "al/deviceLogin";
 exports.AlClearCredentialsCacheRequest = "al/clearCredentialsCache";
 exports.AlGotoDefinitionRequest = "al/gotodefinition";
 exports.AlGeneratePermissionSetRequest = "al/generatePermissionSet";
-exports.AlGenerateEntitlementsRequest = "al/generateEntitlements";
 exports.AlOpenEventRecorderRequest = "al/openEventRecorder";
 exports.AlReloadRadFileRequest = "al/reloadRadFile";
 exports.AlSynchronizeProjectDependenciesRequest = "al/synchronizeProjectDependencies";

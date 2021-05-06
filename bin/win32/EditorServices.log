@@ -1,3 +1,57 @@
-﻿10/19/2020 16:12:11 [/1] Editor Services Host v6.1.5.24898 starting (pid 14268)...
-10/19/2020 16:12:12 [/1] Editor Services Host started!
-10/19/2020 16:14:59 [/1] Editor Services Host exited normally.
+﻿05/06/2021 15:18:52 [/1] Editor Services Host v7.1.6.60713 starting (pid 2292)...
+05/06/2021 15:18:53 [/1] Editor Services Host started!
+05/06/2021 15:41:06 [1/9] Field
+   at Microsoft.Dynamics.Nav.CodeAnalysis.DebugAssertHelper.Assert(Boolean condition, String message) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\DebugAssertHelper.cs:line 25
+   at Microsoft.Dynamics.Nav.CodeAnalysis.SymbolExtensions.GetLocation(Symbol symbol) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Symbols\KindsAndExtensions\SymbolExtensions.cs:line 1523
+   at Microsoft.Dynamics.Nav.CodeAnalysis.BoundPropertyExpressionFactory`1.ValidateConstNullTypeIntegrity(BoundExpression boundLhs, DiagnosticBag diagnostics) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Binder\BoundPropertyExpressionFactory.cs:line 387
+   at Microsoft.Dynamics.Nav.CodeAnalysis.BoundPropertyExpressionFactory`1.ValidateTypeIntegrity(BoundExpression boundLhs, BoundPropertyRhsExpression boundRhs, DiagnosticBag diagnostics) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Binder\BoundPropertyExpressionFactory.cs:line 338
+   at Microsoft.Dynamics.Nav.CodeAnalysis.BoundPropertyExpressionFactory`1.CreateExpression(IdentifierNameSyntax leftHandside, SyntaxNode rightHandside, DiagnosticBag diagnostics) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Binder\BoundPropertyExpressionFactory.cs:line 69
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Binder.BindPropertyExpressions(SyntaxNode ownerSyntax, PropertyTypeInfo info, SeparatedSyntaxList`1 propertyExpressions, ExpressionContext expressionContext, CompilationOptions options, DiagnosticBag diagnostics, Boolean& hasErrors) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Binder\Binder_Properties.cs:line 2454
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Binder.BindTableViewStatement(TableViewPropertyValueSyntax propertyValue, PropertyTypeInfo info, DiagnosticBag diagnostics) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Binder\Binder_Properties.cs:line 1939
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Binder.GetBoundPropertyValue(PropertySyntax syntax, DiagnosticBag diagnostics, PropertyValueSyntax propertyValue, PropertyTypeInfo info) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Binder\Binder_Properties.cs:line 171
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Binder.BindProperty(PropertySyntax syntax, DiagnosticBag diagnostics) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Binder\Binder_Properties.cs:line 66
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Symbols.SourcePropertySymbol.LazyGetProperty() in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Symbols\Source\SourcePropertySymbol.cs:line 167
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Symbols.SourcePropertySymbol.ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Symbols\Source\SourcePropertySymbol.cs:line 125
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Symbols.ObjectMembers`1.ForceCompleteProperties(SourceLocation locationOpt, CancellationToken cancellationToken) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Symbols\Members\ObjectMembers.cs:line 156
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Symbols.ObjectMembers`1.ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken, Predicate`1 excludeFromNameUniqueness) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Symbols\Members\ObjectMembers.cs:line 884
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Symbols.SourcePageTypeSymbol.ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Symbols\Source\SourcePageTypeSymbol.cs:line 50
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Symbols.SourceModuleSymbol.ForceCompleteMemberByLocation(SourceLocation locationOpt, Symbol member, CancellationToken cancellationToken) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Symbols\Source\SourceModuleSymbol.cs:line 226
+   at System.Threading.Tasks.Parallel.<>c__DisplayClass19_0`1.<ForWorker>b__1(RangeWorker& currentWorker, Int32 timeout, Boolean& replicationDelegateYieldedBeforeCompletion)
+   at System.Threading.Tasks.TaskReplicator.Replica.Execute()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+   at System.Threading.Tasks.ThreadPoolTaskScheduler.TryExecuteTaskInline(Task task, Boolean taskWasPreviouslyQueued)
+   at System.Threading.Tasks.TaskScheduler.TryRunInline(Task task, Boolean taskWasPreviouslyQueued)
+   at System.Threading.Tasks.Task.InternalRunSynchronously(TaskScheduler scheduler, Boolean waitForCompletion)
+   at System.Threading.Tasks.TaskReplicator.Run[TState](ReplicatableUserAction`1 action, ParallelOptions options, Boolean stopOnFirstFailure)
+   at System.Threading.Tasks.Parallel.ForWorker[TLocal](Int32 fromInclusive, Int32 toExclusive, ParallelOptions parallelOptions, Action`1 body, Action`2 bodyWithState, Func`4 bodyWithLocal, Func`1 localInit, Action`1 localFinally)
+   at System.Threading.Tasks.Parallel.For(Int32 fromInclusive, Int32 toExclusive, ParallelOptions parallelOptions, Action`1 body)
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Symbols.SourceModuleSymbol.ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Symbols\Source\SourceModuleSymbol.cs:line 107
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Compilation.GetSourceDeclarationDiagnostics(SyntaxTree syntaxTree, Nullable`1 filterSpanWithinTree, Func`4 locationFilterOpt, CancellationToken cancellationToken) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Compilation\Compilation.cs:line 1104
+   at Microsoft.Dynamics.Nav.CodeAnalysis.Compilation.GetDiagnostics(CompilationStage stage, Boolean includeEarlierStages, CancellationToken cancellationToken) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.CodeAnalysis\Compilation\Compilation.cs:line 680
+   at Microsoft.Dynamics.Nav.EditorServices.Protocol.LanguageServer.DiagnosticsProvider.GetDiagnostics(Solution solution, CancellationToken cancellationToken, Boolean allowInMemoryFiles) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.EditorServices.Protocol\LanguageServer\DiagnosticsProvider.cs:line 61
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Microsoft.Dynamics.Nav.EditorServices.Protocol.LanguageServer.DiagnosticsProvider.GetDiagnostics(Solution solution, CancellationToken cancellationToken, Boolean allowInMemoryFiles)
+   at Microsoft.Dynamics.Nav.DiagnosticService.GetAndEmitFullDiagnostics() in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.EditorServices.Protocol\LanguageServer\DiagnosticService.cs:line 287
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Microsoft.Dynamics.Nav.DiagnosticService.GetAndEmitFullDiagnostics()
+   at Microsoft.Dynamics.Nav.DiagnosticService.ListenForBufferChanges() in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.EditorServices.Protocol\LanguageServer\DiagnosticService.cs:line 230
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Microsoft.Dynamics.Nav.DiagnosticService.ListenForBufferChanges()
+   at System.Threading.ThreadHelper.ThreadStart_Context(Object state)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadHelper.ThreadStart()
+
+05/06/2021 15:41:06 [/9] Please report this issue to https://github.com/microsoft/al/issues including information on how to reproduce it, if possible.
+Processing of message 'DiagnosticProvider' failed with error: 'Value cannot be null. (Parameter 'uriString')'
+Details:
+System.ArgumentNullException: Value cannot be null. (Parameter 'uriString')
+   at System.Uri..ctor(String uriString)
+   at Microsoft.Dynamics.Nav.EditorServices.Protocol.LanguageServer.DiagnosticsProvider.IsManifestDiagnostic(Diagnostic diagnostic, String appjsonPath) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.EditorServices.Protocol\LanguageServer\DiagnosticsProvider.cs:line 423
+   at Microsoft.Dynamics.Nav.EditorServices.Protocol.LanguageServer.DiagnosticsProvider.AddManifestDiagnosticsToBuilder(ImmutableArray`1 diagnostics, Int32& combinedHashCode, ArrayBuilder`1 builder, String documentPath) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.EditorServices.Protocol\LanguageServer\DiagnosticsProvider.cs:line 405
+   at Microsoft.Dynamics.Nav.EditorServices.Protocol.LanguageServer.DiagnosticsProvider.CreateDiagnosticResponseForManifestDiagnostics(ImmutableArray`1 compilationDiagnostics, ImmutableArray`1 analysisDiagnostics, ImmutableArray`1 manifestDiagnostics, String appJsonPath, CancellationToken cancellationToken) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.EditorServices.Protocol\LanguageServer\DiagnosticsProvider.cs:line 380
+   at Microsoft.Dynamics.Nav.EditorServices.Protocol.LanguageServer.DiagnosticsProvider.GetDiagnostics(Solution solution, CancellationToken cancellationToken, Boolean allowInMemoryFiles) in D:\a\1\s\source\Prod\Microsoft.Dynamics.Nav.EditorServices.Protocol\LanguageServer\DiagnosticsProvider.cs:line 77
+
+05/06/2021 16:41:38 [/1] Editor Services Host exited normally.
+05/06/2021 17:18:07 [/1] Editor Services Host v7.1.6.60713 starting (pid 4396)...
+05/06/2021 17:18:08 [/1] Editor Services Host started!
